@@ -1,0 +1,22 @@
+{
+  "name": "awesome_chat",
+  "version": "1.0.0",
+  "description": "DO AN TOT NGHIEP",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trantienthuong/awesome_chat.git"
+  },
+  "author": "HustHunter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trantienthuong/awesome_chat/issues"
+  },
+  "homepage": "https://github.com/trantienthuong/awesome_chat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
