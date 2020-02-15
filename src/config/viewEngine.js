@@ -1,6 +1,9 @@
 import express from "express";
 import expressEjsExtend from "express-ejs-extend";
 
+/**
+ * 
+ */
 
 let configViewsEngine = (app) => {
   app.use (express.static("./src/public"));
