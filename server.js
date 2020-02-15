@@ -1,9 +1,11 @@
-var express = require("express"); //nạp thư viện express
-var app = express();
+// let express = require("express");
+ //nạp thư viện express
+import express from "express";
+let app = express();
 
 
-const hostname = 'localhost';
-const port = 8017;
+let hostname = 'localhost';
+let port = 8017;
 //viet router helloWorld
 
 app.get('/helloworld',(req ,res) => {
