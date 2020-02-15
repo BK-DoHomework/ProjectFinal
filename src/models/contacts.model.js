@@ -12,4 +12,11 @@ let ContactSchema = new Schema({
 
 });
 
+
+ContactSchema.statics = {
+  createNew(item) {
+    return this.create(item); // sử dụng hàm create có sẵn của mogoDB
+  }
+};
+
 module.exports = mongoose.model("contact", ContactSchema);
