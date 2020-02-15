@@ -4,11 +4,16 @@ import ContactModel from "./models/contacts.model";
 import configViewsEngine from "./config/viewEngine";
 
 import initRouter from "./routers/web";
+import bodyParser from "body-parser";
 let app = express();
 ConnectDB();
 
 //config views engine
 configViewsEngine(app);
+
+//enable post data for request
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 // init all Router
 initRouter(app);
