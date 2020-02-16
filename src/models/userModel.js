@@ -32,4 +32,15 @@ let UserSchema = new Schema({
 
 });
 
+
+UserSchema.statics = {
+  createNew(item) {
+    return this.create(item); // sử dụng hàm create có sẵn của mogoDB
+  },
+  findByEmail(email) {
+    return this.findOne({ "local.email": email }).exec();
+  }
+
+};
+
 module.exports = mongoose.model("user", UserSchema);
