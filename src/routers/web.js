@@ -19,6 +19,8 @@ let initRouter = (app) => {
 
   router.post('/register',authValid.register, auth.postRegister); // khi kich button thì nó sẽ check dữ liệu trước khi đi qua controller
 
+  router.get('/verify/:token', auth.verifyAccount);
+
   return app.use("/",router);
 };
 

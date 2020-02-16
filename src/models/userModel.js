@@ -37,8 +37,26 @@ UserSchema.statics = {
   createNew(item) {
     return this.create(item); // sử dụng hàm create có sẵn của mogoDB
   },
+
   findByEmail(email) {
     return this.findOne({ "local.email": email }).exec();
+  },
+
+  removeById(id) {
+    return this.findByIdAndRemove(id).exec();
+  },
+
+  findByToken(token){
+    return this.findOne({"local.verifyToken": token}).exec()
+  }
+  ,
+  verify(token) {
+    return this.findOneAndUpdate(
+      {"local.verifyToken" : token}, //tim den tai khoan co cai token do sau do set trang thai lai
+
+      {"local.isActive":true ,"local.verifyToken" : null}
+
+    ).exec();
   }
 
 };

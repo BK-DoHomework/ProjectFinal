@@ -35,9 +35,33 @@ let postRegister = async (req, res) => {
   // console.log(req.body);
 
   try {
-    let createUserSuccess = await auth.register(req.body.email, req.body.gender, req.body.password);
+    let createUserSuccess = await auth.register(req.body.email, req.body.gender, req.body.password,req.protocol,req.get("host"));
 
     successArr.push(createUserSuccess);
+
+
+    req.flash("success", successArr);
+    return res.redirect("/login-register");
+
+  } catch (error) {
+    errorsArr.push(error); // bat truong hop email dung lai
+
+    req.flash("errors", errorsArr);
+
+    return res.redirect("/login-register");
+  }
+
+
+};
+
+let verifyAccount = async (req,res)=>{
+  let errorsArr = [];
+  let successArr = [];
+
+  try {
+    let veryfiSuccess = await auth.verifyAccount(req.params.token);
+    successArr.push(veryfiSuccess);
+
     req.flash("success", successArr);
     return res.redirect("/login-register");
 
@@ -57,6 +81,6 @@ let postRegister = async (req, res) => {
 
 module.exports = {
   getLoginRegister: getLoginRegister,
-  postRegister: postRegister
+  postRegister: postRegister,
+  verifyAccount:verifyAccount
 }
-
