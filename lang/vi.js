@@ -10,7 +10,9 @@ export const transErrors = {
   account_in_use: "Email này đã được sử dụng !",
   account_remove: "Tài khoản này đã bị gỡ khỏi hệ thông, nếu là hiểu lầm thì hãy liện hệ với bộ phận hỗ trợ của chúng tôi !",
   account_not_active: "Tài khoản đã đăng kí nhưng chưa active , bạn hãy check email !",
-  token_undefined : "Token không tồn tại"
+  token_undefined : "Token không tồn tại",
+  login_failed : "Sai tài khoản hoặc mật khẩu !",
+  server_erross: "Lỗi server , vui lòng đăng nhập lại sau !Liên hệ với bộ phận hỗ trợ để đc giúp đỡ "
 
 }
 
@@ -18,7 +20,11 @@ export const transSuccess = {
   userCreated: (userEmail) => {
     return `Tài khoản <strong>${userEmail}</strong> đã đc tạo , vui lòng kiểm tra mail để active trước khi đăng nhập !`
   },
-  account_active : "Kích hoạt tài khoản thành công bạn có thể đăng nhập vào ứng dụng !"
+  account_active : "Kích hoạt tài khoản thành công bạn có thể đăng nhập vào ứng dụng !",
+  login_success : (userName)=> {
+    return `Xin chào ${userName} , chúc bạn một ngày mới tốt lành !`
+
+  }
 
 }
 

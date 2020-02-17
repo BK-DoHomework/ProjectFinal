@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import connectFlash from "connect-flash";
 
 import configSesstion from "./config/sesstion";
+import passport from "passport";
 
 //Init app
 let app = express();
@@ -26,6 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //enable flash mesage
 app.use(connectFlash());
+
+//config passport
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // init all Router
 initRouter(app);
