@@ -24,3 +24,10 @@ export FB_APP_SECRET=***
 export FB_CALLBACK_URL=***
 
 #sau khi fb xac thuc xong no se goi tro lai cai app cua chung ta
+
+
+#config login GG app
+
+export GG_APP_ID=***
+export GG_APP_SECRET=***
+export GG_CALLBACK_URL=***
