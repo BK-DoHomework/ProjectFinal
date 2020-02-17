@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from "bcrypt";
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
@@ -57,8 +58,20 @@ UserSchema.statics = {
       {"local.isActive":true ,"local.verifyToken" : null}
 
     ).exec();
+  },
+  findUserById(id){
+    return this.findById(id).exec();
   }
 
 };
+
+//static giup chung ta tim kiem ban gi va method giup chung ta thao tac voi ban ghi
+
+UserSchema.methods ={
+  comparePassword(password){
+    return bcrypt.compare(password,this.local.password); //promise nay tra ve gi true or false
+
+  }
+}
 
 module.exports = mongoose.model("user", UserSchema);
