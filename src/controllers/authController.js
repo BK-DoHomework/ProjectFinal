@@ -1,5 +1,6 @@
 import { validationResult } from "express-validator/check";
 import { auth } from "./../services/index";
+import { transSuccess } from "../../lang/vi";
 
 
 let getLoginRegister = (req, res) => {
@@ -35,7 +36,7 @@ let postRegister = async (req, res) => {
   // console.log(req.body);
 
   try {
-    let createUserSuccess = await auth.register(req.body.email, req.body.gender, req.body.password,req.protocol,req.get("host"));
+    let createUserSuccess = await auth.register(req.body.email, req.body.gender, req.body.password, req.protocol, req.get("host"));
 
     successArr.push(createUserSuccess);
 
@@ -54,7 +55,7 @@ let postRegister = async (req, res) => {
 
 };
 
-let verifyAccount = async (req,res)=>{
+let verifyAccount = async (req, res) => {
   let errorsArr = [];
   let successArr = [];
 
@@ -77,10 +78,35 @@ let verifyAccount = async (req,res)=>{
 
 };
 
+let getLogout = (req, res) => {
+  req.logout(); //xoa passport user ma ta da luu trong cho nguoi dung
+  req.flash("success", transSuccess.logout_success);
+  return res.redirect("/login-register");
+};
+
+let checkLoggedIn = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login-register");
+  }
+  next();
+
+};
+
+let checkLoggedOut = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+  next();
+
+};
+
 
 
 module.exports = {
   getLoginRegister: getLoginRegister,
   postRegister: postRegister,
-  verifyAccount:verifyAccount
+  verifyAccount: verifyAccount,
+  getLogout: getLogout,
+  checkLoggedIn: checkLoggedIn,
+  checkLoggedOut: checkLoggedOut
 }
