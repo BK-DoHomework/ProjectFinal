@@ -19,15 +19,15 @@ let router = express.Router();
 
 let initRouter = (app) => {
 
-  router.get('/', home.getHome);
+  router.get('/',auth.checkLoggedIn, home.getHome);
 
-  router.get('/login-register',auth.getLoginRegister );
+  router.get('/login-register',auth.checkLoggedOut,auth.getLoginRegister );
 
-  router.post('/register',authValid.register, auth.postRegister); // khi kich button thì nó sẽ check dữ liệu trước khi đi qua controller
+  router.post('/register',auth.checkLoggedOut,authValid.register, auth.postRegister); // khi kich button thì nó sẽ check dữ liệu trước khi đi qua controller
 
-  router.get('/verify/:token', auth.verifyAccount);
+  router.get('/verify/:token',auth.checkLoggedOut, auth.verifyAccount);
 
-  router.post("/login", passport.authenticate("local",{
+  router.post("/login",auth.checkLoggedOut, passport.authenticate("local",{
     // phai dung actiom trong ejs ==> khi dung ==> tra ve
     successRedirect: "/",
     failureRedirect:"/login-register",
@@ -35,6 +35,7 @@ let initRouter = (app) => {
     failureFlash: true
   }))
 
+  router.get("/logout", auth.checkLoggedIn ,auth.getLogout);
   return app.use("/",router);
 };
 

@@ -24,7 +24,8 @@ export const transSuccess = {
   login_success : (userName)=> {
     return `Xin chào ${userName} , chúc bạn một ngày mới tốt lành !`
 
-  }
+  },
+  logout_success:"Đăng xuất thành công"
 
 }
 
