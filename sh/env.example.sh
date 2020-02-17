@@ -15,3 +15,12 @@ export MAIL_USER=***
 export MAIL_PASSWORD=***
 export MAIL_HOST=***
 export MAIL_PORT=***
+
+
+#config login facebook app
+
+export FB_APP_IB=***
+export FB_APP_SECRET=***
+export FB_CALLBACK_URL=***
+
+#sau khi fb xac thuc xong no se goi tro lai cai app cua chung ta
