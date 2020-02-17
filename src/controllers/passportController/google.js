@@ -1,29 +1,28 @@
 import passport from "passport";
-import passportFacebook from "passport-facebook";
+import passportGoogle from "passport-google-oauth";
 import UserModel from "../../models/userModel";
 import { transErrors, transSuccess, transMail } from "../../../lang/vi";
 
-let FacebookStrategy = passportFacebook.Strategy;
+let GoogleStrategy = passportGoogle.OAuth2Strategy;
 
-let fbAppId = process.env.FB_APP_ID
-let fbAppSecret = process.env.FB_APP_SECRET
-let fbCallbackUrl = process.env.FB_CALLBACK_URL
+let ggAppId = process.env.GG_APP_ID
+let ggAppSecret = process.env.GG_APP_SECRET
+let ggCallbackUrl = process.env.GG_CALLBACK_URL
 
-//khoi tao passportFacebook
+//khoi tao passportgGoogle
 
-let initPassportFacebook = () => {
+let initPassportGoogle = () => {
 
-  passport.use(new FacebookStrategy({
+  passport.use(new GoogleStrategy({
 
-    clientID: fbAppId,
-    clientSecret: fbAppSecret,
-    callbackURL: fbCallbackUrl,
-    profileFields: ["email", "gender", "displayName"], // cac truong ban muon lay tren fb ve may
+    clientID: ggAppId,
+    clientSecret: ggAppSecret,
+    callbackURL: ggCallbackUrl,
     passReqToCallback: true // sau khi xa thuc ==> gui req vao callback
 
-  }, async (req, accessToken, refeshToken, profile, done) => {
+  }, async (req, access_token, refresh_token, profile, done) => {
     try {
-      let user = await UserModel.findByFacebookUid(profile.id);
+      let user = await UserModel.findByGoogleUid(profile.id);
 
       if (user) {
         return done(null, user, req.flash("success", transSuccess.login_success(user.username)));
@@ -34,14 +33,14 @@ let initPassportFacebook = () => {
       //user su dung 1 tai khoan fb chua lan nao dang nhap vao ung dung cua chung ta
 
       let newUserItem = {
-        username: profile.displayName,
+        username: profile. displayName,
         gender: profile.gender,
         local: {
           isActive: true
         },
-        facebook: {
+        google: {
           uid: profile.id,
-          token: accessToken,
+          token: access_token,
           email: profile.emails[0].value
 
         }
@@ -83,4 +82,4 @@ let initPassportFacebook = () => {
   })
 
 }
-module.exports = initPassportFacebook;
+module.exports = initPassportGoogle;
