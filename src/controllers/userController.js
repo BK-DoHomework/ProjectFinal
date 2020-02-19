@@ -1,6 +1,7 @@
 import multer from "multer";
 import { app } from "../config/app";//=>export theo kieu doi tuong nen phai dung {}
 import { transErrors, transSuccess } from "../../lang/vi";
+import { validationResult } from "express-validator/check";
 
 import uuidv4 from "uuid/v4";
 import { user } from "../services/index";
@@ -23,7 +24,7 @@ let storageAvartar = multer.diskStorage({
   },
 
 
-}); //khai báo nơi mà mình upload ảnh lên ứng dụng của mình
+}); //khai báo nơi mà mình upload ảnh lên ứng dụng của mình(đích đến)
 
 
 let avatarUploadFile = multer({
@@ -55,7 +56,7 @@ let updateAvatar = (req, res) => {
 
       await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`);
       let result = {
-        message: transSuccess.avatar_updated,
+        message: transSuccess.user_info_updated,
         imageSrc: `images/users/${req.file.filename}`
       }
 
@@ -70,6 +71,46 @@ let updateAvatar = (req, res) => {
 
 }
 
+let updateInfo =async(req,res)=>{
+  let errorsArr = [];
+
+
+
+
+  let validationErros = validationResult(req); // khai báo biến trả về giá trị bằng giá trị gửi lên sau đó kiểm tra
+
+  if (!validationErros.isEmpty()) {
+
+    let erros = Object.values(validationErros.mapped()); // => trả lại một bảng những cái lỗi đẫ đc nhóm lại !
+
+    erros.forEach((item) => {
+      errorsArr.push(item.msg); // đẩy msg vào trong 1 cái mảng rỗng đã khai báo sẵn
+    })
+
+    return res.status(500).send(errorsArr); // => khi có lỗi xảy ra thì vẫn trả về trang login nhưng thêm vào là cái mảng lỗi "error" trong flash
+  }
+  try {
+    let updateUserItem =req.body; // req.body chinh la cai userInfo
+
+    await user.updateUser(req.user._id, updateUserItem);
+    //khi update thanh cong se gui va cho nguoi dung 1 cai result
+
+    let result = {
+      message: transSuccess.user_info_updated,
+
+    }
+
+    return res.status(200).send(result);
+
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+
+}
+
 module.exports = {
-  updateAvatar: updateAvatar
+  updateAvatar: updateAvatar,
+  updateInfo:updateInfo
 }

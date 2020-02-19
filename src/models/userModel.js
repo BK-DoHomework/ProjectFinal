@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 let UserSchema = new Schema({
   username: String,
   gender: { type: String, default: "male" },
-  phone: { type: Number, default: null },
+  phone: { type: String, default: null }, //có thể số đt sau này để theo kiểu +84
   address: { type: String, default: null },
   avatar: { type: String, default: "avatar-default.jpg" },
   role: { type: String, default: "user" },
