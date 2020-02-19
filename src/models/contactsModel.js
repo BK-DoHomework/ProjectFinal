@@ -16,7 +16,18 @@ let ContactSchema = new Schema({
 ContactSchema.statics = {
   createNew(item) {
     return this.create(item); // sử dụng hàm create có sẵn của mogoDB
+  },
+  //tim kiem tat ca ban be voi lai tai khoan dang co
+  findAllByUser(userId){
+    return this.find({
+      $or:[
+        {"userId":userId},
+        {"contactId":userId}
+      ]
+
+    }).exec();
   }
+
 };
 
 module.exports = mongoose.model("contact", ContactSchema);
