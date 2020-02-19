@@ -47,33 +47,37 @@ UserSchema.statics = {
     return this.findByIdAndRemove(id).exec();
   },
 
-  findByToken(token){
-    return this.findOne({"local.verifyToken": token}).exec()
+  findByToken(token) {
+    return this.findOne({ "local.verifyToken": token }).exec()
   }
   ,
   verify(token) {
     return this.findOneAndUpdate(
-      {"local.verifyToken" : token}, //tim den tai khoan co cai token do sau do set trang thai lai
+      { "local.verifyToken": token }, //tim den tai khoan co cai token do sau do set trang thai lai
 
-      {"local.isActive":true ,"local.verifyToken" : null}
+      { "local.isActive": true, "local.verifyToken": null }
 
     ).exec();
   },
-  findUserById(id){
+  findUserById(id) {
     return this.findById(id).exec();
   },
-  findByFacebookUid (uid){
+  findByFacebookUid(uid) {
     return this.findOne({ "facebook.uid": uid }).exec();
   },
 
-  findByGoogleUid (uid){
+  findByGoogleUid(uid) {
     return this.findOne({ "google.uid": uid }).exec();
   },
 
-  updateUser(id,item){
-    return this.findByIdAndUpdate(id,item).exec(); //return old item affter update
+  updateUser(id, item) {
+    return this.findByIdAndUpdate(id, item).exec(); //return old item affter update
 
+  },
+  updatePassword(id, hashedPassword) {
+    return this.findByIdAndUpdate(id, { "local.password": hashedPassword }).exec();
   }
+
 
 
 
@@ -81,9 +85,9 @@ UserSchema.statics = {
 
 //static giup chung ta tim kiem ban gi va method giup chung ta thao tac voi ban ghi
 
-UserSchema.methods ={
-  comparePassword(password){
-    return bcrypt.compare(password,this.local.password); //promise nay tra ve gi true or false
+UserSchema.methods = {
+  comparePassword(password) {
+    return bcrypt.compare(password, this.local.password); //promise nay tra ve gi true or false
 
   }
 }
