@@ -110,7 +110,46 @@ let updateInfo =async(req,res)=>{
 
 }
 
+let updatePassword =async(req,res)=>{
+  let errorsArr = [];
+
+
+
+
+  let validationErros = validationResult(req); // khai báo biến trả về giá trị bằng giá trị gửi lên sau đó kiểm tra
+
+  if (!validationErros.isEmpty()) {
+
+    let erros = Object.values(validationErros.mapped()); // => trả lại một bảng những cái lỗi đẫ đc nhóm lại !
+
+    erros.forEach((item) => {
+      errorsArr.push(item.msg); // đẩy msg vào trong 1 cái mảng rỗng đã khai báo sẵn
+    })
+    // console.log(errorsArr);
+    return res.status(500).send(errorsArr);
+  }
+  console.log(req.body);
+  try {
+    let updateUserItem =req.body;
+    await user.updatePassword(req.user._id, updateUserItem);
+
+    let result = {
+      message: transSuccess.user_password_updated,
+
+    }
+
+    return res.status(200).send(result);
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+
+  }
+
+}
+
 module.exports = {
   updateAvatar: updateAvatar,
-  updateInfo:updateInfo
+  updateInfo:updateInfo,
+  updatePassword:updatePassword
 }
