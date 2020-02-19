@@ -99,23 +99,42 @@ $(document).ready(function () {
       processData: false,
       data:userAvatar,
       success: function(result){
+        console.log(result)
+        //diplay success
+        $('.user-modal-alert-success').find("span").text(result.message);
+        $('.user-modal-alert-success').css("display","block");
+        //update navbar avatar
+        $('#navbar-avatar').attr("src",result.imageSrc);
+        //update origin avatar src
+        originAvartarSrc=result.imageSrc;
+         //khi co loi thi phai reset all
+         $("#input-btn-cancel-update-user").click();//tu dong click vao cai nut nay
+
 
       },
       error: function(error){
+        //diplay erros
+        console.log(error);
+        $('.user-modal-alert-error').find("span").text(error.responseText);
+        $('.user-modal-alert-error').css("display","block");
+        //ghi de
+
+        //khi co loi thi phai reset all
+        $("#input-btn-cancel-update-user").click();//tu dong click vao cai nut nay
 
       }
 
     })
-    // console.log(userAvatar);
 
-    // console.log(userInfo);
   });
 
   $("#input-btn-cancel-update-user").bind("click", function () {
     //set lại các giá trị chứ không phải khai báo lại cái giá trị
     userAvatar = null;
     userInfo = {};
+    $("#input-change-avatar").val(null);
     $("#user-modal-avatar").attr("src", originAvartarSrc);
+
 
   })
 
