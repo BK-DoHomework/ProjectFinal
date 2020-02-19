@@ -6,7 +6,8 @@ export const transValidation = {
   update_username:"User name phải giới hạn trong khoảng 12-17 kí tự, và không có kí tự đặc biệt ",
   update_gender:"Opps!Trường giới tính đang có vấn đề !",
   update_address:"Giới hạn địa chỉ trong khoảng 3-30 kí tự",
-  update_phone:"Số điện thoại việt nam bắt đầu tuwd số 0, và giớ hạn là 11 chữ số !"
+  update_phone:"Số điện thoại việt nam bắt đầu tuwd số 0, và giớ hạn là 11 chữ số !",
+  keyword_find_user:"Tìm kiếm chỉ ấp dụng cho chữ cái, số, khoảng trắng ,không áp dụng cho các kí tự đặc biệt !"
 
 };
 
