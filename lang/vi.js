@@ -3,6 +3,10 @@ export const transValidation = {
   gender_incorrect: "Sao lại sai được nhỉ ?",
   password_incorrect: "Mật khẩu phải chứa ít nhất 8 kí tự , bao gồm chữ hoa chữ thường và kí tự đặt biệt",
   password_confirmation_incorrect: "Nhập lại mật khâu chưa chính xác !",
+  update_username:"User name phải giới hạn trong khoảng 12-17 kí tự, và không có kí tự đặc biệt ",
+  update_gender:"Opps!Trường giới tính đang có vấn đề !",
+  update_address:"Giới hạn địa chỉ trong khoảng 3-30 kí tự",
+  update_phone:"Số điện thoại việt nam bắt đầu tuwd số 0, và giớ hạn là 11 chữ số !"
 
 };
 
@@ -28,7 +32,8 @@ export const transSuccess = {
 
   },
   logout_success:"Đăng xuất thành công",
-  avatar_updated :"cập nhập ảnh đại diện thành công !"
+  // avatar_updated :"cập nhập ảnh đại diện thành công !",
+  user_info_updated: "cập nhập các thông tin người dùng thành công ! "
 
 }
 
