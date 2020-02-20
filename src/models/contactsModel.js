@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { contact } from '../services';
 let Schema = mongoose.Schema;
 
 let ContactSchema = new Schema({
@@ -18,14 +19,44 @@ ContactSchema.statics = {
     return this.create(item); // sử dụng hàm create có sẵn của mogoDB
   },
   //tim kiem tat ca ban be voi lai tai khoan dang co
-  findAllByUser(userId){
+  findAllByUser(userId) {
     return this.find({
-      $or:[
-        {"userId":userId},
-        {"contactId":userId}
+      $or: [
+        { "userId": userId },
+        { "contactId": userId }
       ]
 
     }).exec();
+  },
+  //kiem tra xem ton tai ban ghi nao lien quan den 2 thang do chua
+  checkExists(userId, contactId) {
+    return this.findOne({
+      $or: [
+        {
+          $and: [
+            { "userId": userId },
+            { "contactId": contactId }
+          ]
+        },
+        {
+          $and: [
+            { "userId": contactId },
+            { "contactId": userId }
+          ]
+        }
+
+      ]
+    }).exec();
+
+  },
+  //xoa cac yeu cau
+  removeRequestContact(userId, contactId) {
+    return this.remove({
+      $and: [
+        { "userId": userId },
+        { "contactId": contactId }
+      ]
+    })
   }
 
 };
