@@ -10,6 +10,12 @@
 export APP_HOST=***
 export APP_PORT=***
 
+
+#config key section
+export SESSTION_KEY=***
+export SESSTION_SECRET=***
+
+
 # config app email admin
 export MAIL_USER=***
 export MAIL_PASSWORD=***

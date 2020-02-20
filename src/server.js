@@ -7,16 +7,30 @@ import initRouter from "./routers/web";
 import bodyParser from "body-parser";
 import connectFlash from "connect-flash";
 
-import configSesstion from "./config/sesstion";
+import sesstion from "./config/sesstion";
 import passport from "passport";
+
+import http from "http";
+import socketio from "socket.io";
+import initSockets from "./sockets/index";
+
+import cookieParser from "cookie-parser";
+
+import configSocketIo from "./config/socketio";
+
 
 //Init app
 let app = express();
 
+//Init server with socket.io and express app
+
+let server = http.createServer(app);
+let io = socketio(server);
+
 //ConnectDB
 ConnectDB();
 //config Sesstion
-configSesstion(app);
+sesstion.config(app);
 
 //config views engine
 configViewsEngine(app);
@@ -28,6 +42,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //enable flash mesage
 app.use(connectFlash());
 
+// use cookie parser
+app.use(cookieParser());
+
 //config passport
 
 app.use(passport.initialize());
@@ -36,10 +53,18 @@ app.use(passport.session());
 // init all Router
 initRouter(app);
 
+//config socketio
+configSocketIo(io,cookieParser,sesstion.sesstionStore)
+
+//init all socket
 
 
-app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
-  console.log(`hello thuong , ban dang o ${process.env.APP_HOST} : ${process.env.APP_PORT}/`);
+initSockets(io);
+
+
+
+server.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
+  console.log(`hello Huster Dev , ban dang o ${process.env.APP_HOST} : ${process.env.APP_PORT}/`);
 
 });
 
