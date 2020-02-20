@@ -78,23 +78,25 @@ UserSchema.statics = {
     return this.findByIdAndUpdate(id, { "local.password": hashedPassword }).exec();
   },
   //
-  findAllForAddContact(deprecatedUserIds, keyword){
+  findAllForAddContact(deprecatedUserIds, keyword) {
     return this.find({
-      $and:[
-        {"_id":{$nin:deprecatedUserIds}}, //loc ra cac doi tuong co cai id khong nam trong cai mang truyen vao
-        {"local.isActive":true},
-        {$or:[
-          {"username":{"$regex":keyword}}, //tim cac user name gan giong voi keyword theo phuong thuc regex cua mongoose
-          {"local.email":{"$regex":keyword}},
-          {"facebook.email":{"$regex":keyword}},
-          {"google.email":{"$regex":keyword}},
-        ]}
+      $and: [
+        { "_id": { $nin: deprecatedUserIds } }, //loc ra cac doi tuong co cai id khong nam trong cai mang truyen vao
+        { "local.isActive": true },
+        {
+          $or: [
+            { "username": { "$regex": new RegExp(keyword, "i") } }, //tim cac user name gan giong voi keyword theo phuong thuc regex cua mongoose ==> kong phan biet chu hoa chu thuong
+            { "local.email": { "$regex":new RegExp(keyword, "i") } },
+            { "facebook.email": { "$regex":new RegExp(keyword, "i")} },
+            { "google.email": { "$regex": new RegExp(keyword, "i")} },
+          ]
+        }
       ]
-    },{
-      _id:1,
-      username:1,
-      address:1,
-      avatar:1
+    }, {
+      _id: 1,
+      username: 1,
+      address: 1,
+      avatar: 1
     }).exec();
   }
 

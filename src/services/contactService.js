@@ -4,7 +4,7 @@ import _ from "lodash";
 
 let findUserContact = (currentUserId, keyword) => {
   return new Promise(async (resovle,reject)=>{
-    let deprecatedUserIds=[]; // tra ve nhung id khong dung nua , nhung id nay se nam trong bang contact
+    let deprecatedUserIds=[currentUserId]; // tra ve nhung id khong dung nua , nhung id nay se nam trong bang contact
 
     let contactsByUser = await ContactModel.findAllByUser(currentUserId);
 
@@ -26,6 +26,45 @@ let findUserContact = (currentUserId, keyword) => {
 
 };
 
+let addNew = (currentUserId, contactId) => {
+  return new Promise(async (resovle,reject)=>{
+    let contactExists= await ContactModel.checkExists(currentUserId,contactId);
+    if(contactExists){
+      return reject (false);
+    }
+    //tao ban ghi moi
+    let newContactItem ={
+      userId: currentUserId,
+      contactId:contactId
+    }
+
+    let newContact = await ContactModel.createNew(newContactItem);
+
+    resovle(newContact);
+
+
+  });
+
+
+
+
+};
+
+let removeRequestContact = (currentUserId, contactId) => {
+  return new Promise(async (resovle,reject)=>{
+    let removeReq= await ContactModel.removeRequestContact(currentUserId,contactId);
+    // console.log(removeReq.result); ==>n = 0 or n=1
+
+    if(removeReq.result.n===0){
+      return reject (false);
+    }
+    resovle(true);
+  });
+
+};
+
 module.exports = {
-  findUserContact: findUserContact
+  findUserContact: findUserContact,
+  addNew:addNew,
+  removeRequestContact:removeRequestContact
 };
