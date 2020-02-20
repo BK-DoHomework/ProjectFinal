@@ -10,6 +10,11 @@
 export APP_HOST=localhost
 export APP_PORT=8017
 
+
+#config key section
+export SESSTION_KEY="hustdev"
+export SESSTION_SECRET="mySecret"
+
 # config app email admin
 export MAIL_USER=husthunter97@gmail.com
 export MAIL_PASSWORD=boybathanh

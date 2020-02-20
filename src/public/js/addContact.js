@@ -11,8 +11,9 @@ function addContact(){
         $("#find-user").find(`div.user-remove-request-contact[data-uid=${targetId}]`).css('display','inline-block') //tim den cai no do va an di :v
 
         increaseNumberNotisContact("count-request-contact-sent")
-        //xu li realtime
 
+        socket.emit("add-new-contact",{contactId:targetId})  //ten sk /ts
+ 
       }
     })
   })

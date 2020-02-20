@@ -13,10 +13,10 @@ let sesstionStore = new MongoStore({
 });
 // config sesstion
 
-let configSesstion = (app) => {
+let config = (app) => {
   app.use(sesstion({
-    key: "express.sid",
-    secret: "mySecret",
+    key: process.env.SESSTION_KEY,
+    secret: process.env.SESSTION_SECRET,
     store: sesstionStore,   //mac dinh la luu tren Ram=> tim cach luu vao Csdl
     resave: true,
     saveUninitialized: false,
@@ -27,4 +27,8 @@ let configSesstion = (app) => {
   }))
 };
 
-module.exports = configSesstion;
+module.exports = {
+  config :config,
+  sesstionStore:sesstionStore
+
+};
