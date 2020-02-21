@@ -1,5 +1,3 @@
-
-
 function addContact(){
   $(".user-add-new-contact").bind("click",function(){
     let targetId =$(this).data("uid");//data-uid
@@ -13,8 +11,24 @@ function addContact(){
         increaseNumberNotisContact("count-request-contact-sent")
 
         socket.emit("add-new-contact",{contactId:targetId})  //ten sk /ts
- 
+
       }
     })
   })
 }
+//lang nghe su kien phia server gui ve
+
+socket.on("respone-add-new-contact", function(user){
+  let notif=`<span data-uid="${ user.id }">
+          <img class="avatar-small" src="images/users/${ user.avatar }" alt="">
+          <strong>${ user.username }</strong> đã gửi bạn lời mời kết bạn !
+          </span><br><br><br>`;
+
+  $(".noti_content").prepend(notif);
+  increaseNumberNotisContact("count-request-contact-received");
+
+  increaseNumberNotification("noti_contact_counter");
+  increaseNumberNotification("noti_counter");
+
+
+});

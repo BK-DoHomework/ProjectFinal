@@ -10,7 +10,7 @@ function increaseNumberNotisContact(className){
 }
 
 
-function gecreaseNumberNotisContact(className){
+function decreaseNumberNotisContact(className){
   let currentValue=+$(`.${className}`).find("em").text(); //chuyen string -->number
   currentValue -=1;
   if(currentValue===0){
