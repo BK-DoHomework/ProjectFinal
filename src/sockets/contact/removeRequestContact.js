@@ -1,5 +1,6 @@
+
 //io params form socket.io
-let addNewContact = (io) => {
+let removeRequestContact = (io) => {
   let clients={};
 
   io.on("connection", (socket) => {    //lang nghe su kien connection(danh cho nguoi dung khi truy cap vao trang web cua minh)
@@ -13,34 +14,37 @@ let addNewContact = (io) => {
     }else{
       clients[currentUserId]=[socket.id];
     }
+
     // console.log(clients);
 
     // console.log("---------------------------------------------------------------------------")
-    socket.on("add-new-contact", (data) => {  //lang nghe sk tu clien voi ten ...va gia tri keo len ...
+    socket.on("remove-request-contact", (data) => {  //lang nghe sk tu clien voi ten ...va gia tri keo len ...
       // console.log(data);
       let currentUser = {
         id: socket.request.user._id,
-        username: socket.request.user.username,
-        avatar: socket.request.user.avatar,
       }
       if(clients[data.contactId]){
         clients[data.contactId].forEach(socketId=>{
-          io.sockets.connected[socketId].emit("respone-add-new-contact",currentUser);;
+          io.sockets.connected[socketId].emit("respone-remove-request-contact",currentUser);
         })
       }
     })
 
     socket.on("disconnect",()=>{
+
       //remove socket id
       clients[currentUserId]=clients[currentUserId].filter((socketId)=>{
 
         return socketId !==socket.id;
       })
+
       if(!clients[currentUserId].length){
         delete clients[currentUserId];
       }
+
     })
   })
+
 }
 
-module.exports = addNewContact;
+module.exports = removeRequestContact;
