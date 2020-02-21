@@ -1,5 +1,6 @@
 import ContactModel from "../models/contactsModel";
 import UserModel from "../models/userModel";
+import NotificationModel from "../models/notificationModel";
 import _ from "lodash";
 
 let findUserContact = (currentUserId, keyword) => {
@@ -37,8 +38,19 @@ let addNew = (currentUserId, contactId) => {
       userId: currentUserId,
       contactId:contactId
     }
-
+    //create contact
     let newContact = await ContactModel.createNew(newContactItem);
+
+
+    //create notification
+
+    let notificationItem ={
+      senderId :currentUserId,
+      receiverId:contactId,
+      type:NotificationModel.type.ADD_CONTACT,
+
+    }
+    await NotificationModel.model.createNew(notificationItem)
 
     resovle(newContact);
 
@@ -58,6 +70,11 @@ let removeRequestContact = (currentUserId, contactId) => {
     if(removeReq.result.n===0){
       return reject (false);
     }
+
+    //remove notification
+
+    let notificationType =NotificationModel.type.ADD_CONTACT;
+    await NotificationModel.model.removeRequestContactNotification(currentUserId,contactId,notificationType); //export theo dang doi tuong
     resovle(true);
   });
 
