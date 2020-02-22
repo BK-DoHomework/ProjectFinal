@@ -24,8 +24,9 @@
 }
 socket.on("respone-remove-request-contact", function(user){
 
-  $(".noti_content").find(`span[data-uid = ${user.id}]`).remove();
+  $(".noti_content").find(`div[data-uid = ${user.id}]`).remove();//popup notif
 
+  $("ul.list-notifications").find(`li>div[data-uid = ${user.id}]`).parent().remove();//modal
   decreaseNumberNotisContact("count-request-contact-received");
 
 

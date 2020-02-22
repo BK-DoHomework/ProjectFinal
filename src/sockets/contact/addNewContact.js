@@ -1,17 +1,17 @@
 //io params form socket.io
 let addNewContact = (io) => {
-  let clients={};
+  let clients = {};
 
   io.on("connection", (socket) => {    //lang nghe su kien connection(danh cho nguoi dung khi truy cap vao trang web cua minh)
 
     let currentUserId = socket.request.user._id;
 
     //push socket id in arr
-    if(clients[currentUserId]){
+    if (clients[currentUserId]) {
 
       clients[currentUserId].push(socket.id);
-    }else{
-      clients[currentUserId]=[socket.id];
+    } else {
+      clients[currentUserId] = [socket.id];
     }
     // console.log(clients);
 
@@ -23,20 +23,20 @@ let addNewContact = (io) => {
         username: socket.request.user.username,
         avatar: socket.request.user.avatar,
       }
-      if(clients[data.contactId]){
-        clients[data.contactId].forEach(socketId=>{
-          io.sockets.connected[socketId].emit("respone-add-new-contact",currentUser);;
+      if (clients[data.contactId]) {
+        clients[data.contactId].forEach(socketId => {
+          io.sockets.connected[socketId].emit("respone-add-new-contact", currentUser);;
         })
       }
     })
 
-    socket.on("disconnect",()=>{
+    socket.on("disconnect", () => {
       //remove socket id
-      clients[currentUserId]=clients[currentUserId].filter((socketId)=>{
+      clients[currentUserId] = clients[currentUserId].filter((socketId) => {
 
-        return socketId !==socket.id;
+        return socketId !== socket.id;
       })
-      if(!clients[currentUserId].length){
+      if (!clients[currentUserId].length) {
         delete clients[currentUserId];
       }
     })

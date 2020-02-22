@@ -19,12 +19,14 @@ function addContact(){
 //lang nghe su kien phia server gui ve
 
 socket.on("respone-add-new-contact", function(user){
-  let notif=`<span class="notif_readed_false" data-uid="${ user.id }">
+  let notif=`<div class="notif_readed_false" data-uid="${ user.id }">
           <img class="avatar-small" src="images/users/${ user.avatar }" alt="">
           <strong>${ user.username }</strong> đã gửi bạn lời mời kết bạn !
-          </span><br><br><br>`;
+          </div>`;
 
-  $(".noti_content").prepend(notif);
+  $(".noti_content").prepend(notif);//popup notif
+
+  $("ul.list-notifications").prepend(`<li>${notif}</li>`);//modal notif
   increaseNumberNotisContact("count-request-contact-received");
 
   increaseNumberNotification("noti_contact_counter");
