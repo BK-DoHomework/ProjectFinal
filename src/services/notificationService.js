@@ -14,12 +14,22 @@ let getNotifications = (currentId, limit = 10) => {
         let sender = await UserModel.findUserById(notification.senderId);
 
         return NotificationModel.contents.getContent(notification.type,notification.isRead,sender._id,sender.username,sender.avatar);
-
-
-
       })
       // console.log( await Promise.all(getNotifContents))
       resovle(await Promise.all(getNotifContents));
+
+    } catch (error) {
+      return reject(error);
+    }
+  });
+
+};
+// count all notification unread
+let countNotifUnread = (currentId) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let notificationsUnread =await NotificationModel.model.countNotifUnread(currentId);
+      resovle(notificationsUnread);
 
     } catch (error) {
       return reject(error);
@@ -30,5 +40,6 @@ let getNotifications = (currentId, limit = 10) => {
 
 };
 module.exports = {
-  getNotifications: getNotifications
+  getNotifications: getNotifications,
+  countNotifUnread:countNotifUnread
 };

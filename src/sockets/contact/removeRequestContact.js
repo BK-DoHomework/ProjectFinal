@@ -1,18 +1,18 @@
 
 //io params form socket.io
 let removeRequestContact = (io) => {
-  let clients={};
+  let clients = {};
 
   io.on("connection", (socket) => {    //lang nghe su kien connection(danh cho nguoi dung khi truy cap vao trang web cua minh)
 
     let currentUserId = socket.request.user._id;
 
     //push socket id in arr
-    if(clients[currentUserId]){
+    if (clients[currentUserId]) {
 
       clients[currentUserId].push(socket.id);
-    }else{
-      clients[currentUserId]=[socket.id];
+    } else {
+      clients[currentUserId] = [socket.id];
     }
 
     // console.log(clients);
@@ -23,22 +23,22 @@ let removeRequestContact = (io) => {
       let currentUser = {
         id: socket.request.user._id,
       }
-      if(clients[data.contactId]){
-        clients[data.contactId].forEach(socketId=>{
-          io.sockets.connected[socketId].emit("respone-remove-request-contact",currentUser);
+      if (clients[data.contactId]) {
+        clients[data.contactId].forEach(socketId => {
+          io.sockets.connected[socketId].emit("respone-remove-request-contact", currentUser);
         })
       }
     })
 
-    socket.on("disconnect",()=>{
+    socket.on("disconnect", () => {
 
       //remove socket id
-      clients[currentUserId]=clients[currentUserId].filter((socketId)=>{
+      clients[currentUserId] = clients[currentUserId].filter((socketId) => {
 
-        return socketId !==socket.id;
+        return socketId !== socket.id;
       })
 
-      if(!clients[currentUserId].length){
+      if (!clients[currentUserId].length) {
         delete clients[currentUserId];
       }
 
