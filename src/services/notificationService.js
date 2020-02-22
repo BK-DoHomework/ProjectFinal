@@ -1,6 +1,7 @@
 import NotificationModel from "../models/notificationModel";
 import UserModel from "../models/userModel";
 
+
 const LIMIT_NUMBER = 1;
 
 //lay ra cac ban gi khi nguoi dung reload trang
@@ -67,8 +68,26 @@ let readMore = (currentUserId, skipNumberNotification) => {
 
 
 };
+//function danh dau tat ca cac thong bao laf da doc
+
+let markAllAsRead = (currentUserId, targetUsers) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      await NotificationModel.model.markAllAsRead(currentUserId, targetUsers);
+      resovle(true);
+    } catch (error) {
+      console.log(`Loi khi danh dau thong bao da doc:${error}`)
+      reject(false);
+    }
+
+
+  });
+
+
+};
 module.exports = {
   getNotifications: getNotifications,
   countNotifUnread: countNotifUnread,
-  readMore: readMore
+  readMore: readMore,
+  markAllAsRead: markAllAsRead
 };
