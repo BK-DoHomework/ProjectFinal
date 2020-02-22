@@ -57,7 +57,74 @@ ContactSchema.statics = {
         { "contactId": contactId }
       ]
     })
-  }
+  },
+  //lay ra cac ban ghi da la ban be
+  getContacts(userId, limit) {
+    return this.find({
+      $and: [
+        { $or:[
+          {"userId":userId},
+          {"contactId":userId} //ban bef thi khong phan biet ai gui truoc gui va ai nhan
+        ]},
+        { "status": true }
+      ]
+    }).sort({ "createdAt": -1 }).limit(limit).exec();
+  },
+  //da gui di nhung chua la ban be
+  getContactsSend(userId, limit) {
+    return this.find({
+      $and: [
+        { "userId": userId },
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).limit(limit).exec();
+
+  },
+
+  // nhung cai ma minh nhan dc thi minh dang dung tu contactId
+  getContactsReceived(userId, limit) {
+    return this.find({
+      $and: [
+        { "contactId": userId },
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).limit(limit).exec();
+
+  },
+  //count contact
+  countAllContacts(userId) {
+    return this.count({
+      $and: [
+        { $or:[
+          {"userId":userId},
+          {"contactId":userId} //ban bef thi khong phan biet ai gui truoc gui va ai nhan
+        ]},
+        { "status": true }
+      ]
+    }).exec();
+  },
+
+  countAllContactsSend(userId) {
+    return this.count({
+      $and: [
+        { "userId": userId },
+        { "status": false }
+      ]
+    }).exec();
+
+  },
+
+
+  countAllContactsReceive(userId) {
+    return this.count({
+      $and: [
+        { "contactId": userId },
+        { "status": false }
+      ]
+    }).exec();
+
+  },
+
 
 };
 

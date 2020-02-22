@@ -3,6 +3,9 @@ import UserModel from "../models/userModel";
 import NotificationModel from "../models/notificationModel";
 import _ from "lodash";
 
+
+const LIMIT_NUMBER = 10;
+
 let findUserContact = (currentUserId, keyword) => {
   return new Promise(async (resovle,reject)=>{
     let deprecatedUserIds=[currentUserId]; // tra ve nhung id khong dung nua , nhung id nay se nam trong bang contact
@@ -19,12 +22,7 @@ let findUserContact = (currentUserId, keyword) => {
     let users = await UserModel.findAllForAddContact(deprecatedUserIds,keyword);
     resovle(users);
 
-
   });
-
-
-
-
 };
 
 let addNew = (currentUserId, contactId) => {
@@ -48,18 +46,10 @@ let addNew = (currentUserId, contactId) => {
       senderId :currentUserId,
       receiverId:contactId,
       type:NotificationModel.type.ADD_CONTACT,
-
     }
     await NotificationModel.model.createNew(notificationItem)
-
     resovle(newContact);
-
-
   });
-
-
-
-
 };
 
 let removeRequestContact = (currentUserId, contactId) => {
@@ -80,8 +70,115 @@ let removeRequestContact = (currentUserId, contactId) => {
 
 };
 
+let getContacts = (currentUserId) => {
+  return new Promise(async (resovle,reject)=>{
+    try {
+      let contacts =await ContactModel.getContacts(currentUserId,LIMIT_NUMBER);
+      let users = contacts.map(async (contact) => {
+        if(contact.contactId==currentUserId){
+          return await UserModel.findUserById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
+        }else{
+          return await UserModel.findUserById(contact.contactId)
+        }
+
+      })
+      // console.log( await Promise.all(getNotifContents))
+      resovle(await Promise.all(users));
+
+    } catch (error) {
+
+    }
+  });
+
+};
+
+let getContactsSend = (currentUserId) => {
+  return new Promise(async (resovle,reject)=>{
+    try {
+      let contacts =await ContactModel.getContactsSend(currentUserId,LIMIT_NUMBER);
+      let users = contacts.map(async (contact) => {
+        return await UserModel.findUserById(contact.contactId) // trong ung dung cua minh thi thang kia la contactId
+      })
+      // console.log( await Promise.all(getNotifContents))
+      resovle(await Promise.all(users));
+
+    } catch (error) {
+
+    }
+  });
+
+};
+
+let getContactsReceived = (currentUserId) => {
+  return new Promise(async (resovle,reject)=>{
+    try {
+      let contacts =await ContactModel.getContactsReceived(currentUserId,LIMIT_NUMBER);
+      let users = contacts.map(async (contact) => {
+        return await UserModel.findUserById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
+      })
+      // console.log( await Promise.all(getNotifContents))
+      resovle(await Promise.all(users));
+
+    } catch (error) {
+
+    }
+  });
+
+};
+
+let countAllContacts = (currentUserId) => {
+  return new Promise(async (resovle,reject)=>{
+    try {
+      let count =await ContactModel.countAllContacts(currentUserId);
+      resovle(count);
+
+    } catch (error) {
+
+    }
+  });
+
+};
+let countAllContactsSend = (currentUserId) => {
+  return new Promise(async (resovle,reject)=>{
+    try {
+      let count =await ContactModel.countAllContactsSend(currentUserId);
+      resovle(count);
+
+    } catch (error) {
+
+    }
+  });
+
+};
+
+let countAllContactsReceive = (currentUserId) => {
+  return new Promise(async (resovle,reject)=>{
+    try {
+      let count =await ContactModel.countAllContactsReceive(currentUserId);
+      resovle(count);
+
+    } catch (error) {
+
+    }
+  });
+
+};
+
+
+
+
+
+
+
+
 module.exports = {
   findUserContact: findUserContact,
   addNew:addNew,
-  removeRequestContact:removeRequestContact
+  removeRequestContact:removeRequestContact,
+  getContacts:getContacts,
+  getContactsSend:getContactsSend,
+  getContactsReceived:getContactsReceived,
+  countAllContacts:countAllContacts,
+  countAllContactsSend:countAllContactsSend,
+  countAllContactsReceive:countAllContactsReceive
 };

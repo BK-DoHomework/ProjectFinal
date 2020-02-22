@@ -1278,7 +1278,11 @@ label:focus,
   float: right;
   margin-right: 20px;
 }
-.read-more-notif {
+.read-more-notif,
+.read-more-contacts-received,
+.read-more-contacts-send,
+.read-more-contacts
+ {
   text-align: center;
 }
 
