@@ -14,6 +14,9 @@ function removeRequestContact() {
           $("#find-user").find(`div.user-add-new-contact[data-uid=${targetId}]`).css('display', 'inline-block') //tim den cai no do va an di :v
           //xu li realtime
           decreaseNumberNotisContact("count-request-contact-sent");
+          $("#request-contact-sent").find(`li[data-uid = ${targetId}]`).remove();
+
+
           socket.emit("remove-request-contact", { contactId: targetId })  //ten sk /ts
         }
       }
@@ -32,4 +35,5 @@ socket.on("respone-remove-request-contact", function (user) {
 
   decreaseNumberNotification("noti_contact_counter", 1);
   decreaseNumberNotification("noti_counter", 1);
+  $("#request-contact-received").find(`li[data-uid = ${user.id}]`).remove();
 });
