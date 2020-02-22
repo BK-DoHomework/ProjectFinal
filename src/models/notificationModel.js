@@ -40,7 +40,7 @@ NotificationSchema.statics = {
   getByUserAndLimit(userId,limit){
     return this.find({
       "receiverId":userId
-    }).sort({"createdAt":-1}).limit(limit).exec()
+    }).sort({"createdAt":-1}).limit(limit).exec();
   },
   //count all notification unread
   countNotifUnread(userId){
@@ -51,7 +51,14 @@ NotificationSchema.statics = {
       ]
     }).exec();
 
+  },
+  //load them 10 ban ghi
+  readMore(userId,skip,limit){
+    return this.find({
+      "receiverId":userId
+    }).sort({"createdAt":-1}).skip(skip).limit(limit).exec();
   }
+
 };
 
 const NOTIFICATION_TYPE= {
