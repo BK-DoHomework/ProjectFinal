@@ -2,7 +2,7 @@ import NotificationModel from "../models/notificationModel";
 import UserModel from "../models/userModel";
 
 
-const LIMIT_NUMBER = 10;
+const LIMIT_NUMBER = 1;
 
 //lay ra cac ban gi khi nguoi dung reload trang
 
@@ -14,7 +14,7 @@ let getNotifications = (currentUserId) => {
       let getNotifContents = notifications.map(async (notification) => {
 
         // let notifications = await NotificationModel.model.getByUserAndLimit(currentUserId, limit);
-        let sender = await UserModel.findUserById(notification.senderId);
+        let sender = await UserModel.getNormalUserDataById(notification.senderId);
 
         return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar);
       })
@@ -52,7 +52,7 @@ let readMore = (currentUserId, skipNumberNotification) => {
       let getNotifContents = newNotifications.map(async (notification) => {
 
         // let notifications = await NotificationModel.model.getByUserAndLimit(currentUserId, limit);
-        let sender = await UserModel.findUserById(notification.senderId);
+        let sender = await UserModel.getNormalUserDataById(notification.senderId);
 
         return NotificationModel.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar);
       })

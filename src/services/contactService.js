@@ -4,7 +4,7 @@ import NotificationModel from "../models/notificationModel";
 import _ from "lodash";
 
 
-const LIMIT_NUMBER = 10;
+const LIMIT_NUMBER = 1;
 
 let findUserContact = (currentUserId, keyword) => {
   return new Promise(async (resovle,reject)=>{
@@ -76,9 +76,9 @@ let getContacts = (currentUserId) => {
       let contacts =await ContactModel.getContacts(currentUserId,LIMIT_NUMBER);
       let users = contacts.map(async (contact) => {
         if(contact.contactId==currentUserId){
-          return await UserModel.findUserById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
+          return await UserModel.getNormalUserDataById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
         }else{
-          return await UserModel.findUserById(contact.contactId)
+          return await UserModel.getNormalUserDataById(contact.contactId)
         }
 
       })
@@ -97,7 +97,7 @@ let getContactsSend = (currentUserId) => {
     try {
       let contacts =await ContactModel.getContactsSend(currentUserId,LIMIT_NUMBER);
       let users = contacts.map(async (contact) => {
-        return await UserModel.findUserById(contact.contactId) // trong ung dung cua minh thi thang kia la contactId
+        return await UserModel.getNormalUserDataById(contact.contactId) // trong ung dung cua minh thi thang kia la contactId
       })
       // console.log( await Promise.all(getNotifContents))
       resovle(await Promise.all(users));
@@ -114,7 +114,7 @@ let getContactsReceived = (currentUserId) => {
     try {
       let contacts =await ContactModel.getContactsReceived(currentUserId,LIMIT_NUMBER);
       let users = contacts.map(async (contact) => {
-        return await UserModel.findUserById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
+        return await UserModel.getNormalUserDataById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
       })
       // console.log( await Promise.all(getNotifContents))
       resovle(await Promise.all(users));
@@ -165,9 +165,75 @@ let countAllContactsReceive = (currentUserId) => {
 };
 
 
+let readMoreContacts = (currentUserId, skipNumberContacts) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let newContacts = await ContactModel.readMoreContacts(currentUserId, skipNumberContacts, LIMIT_NUMBER);
+
+      // console.log(newNotifications);
+      let users = newContacts.map(async (contact) => {
+
+        // let notifications = await NotificationModel.model.getByUserAndLimit(currentUserId, limit);
+        if(contact.contactId==currentUserId){
+          return await UserModel.getNormalUserDataById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
+        }else{
+          return await UserModel.getNormalUserDataById(contact.contactId)
+        }
+
+      })
+      // console.log( await Promise.all(users))
+      resovle(await Promise.all(users));
+
+    } catch (error) {
+      return reject(error);
+    }
+
+
+  });
+
+
+};
 
 
 
+
+
+let readMoreContactsSend = (currentUserId, skipNumberContacts) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let newContacts = await ContactModel.readMoreContactsSend(currentUserId, skipNumberContacts, LIMIT_NUMBER);
+      // console.log(newNotifications);
+      let users = newContacts.map(async (contact) => {
+
+        // let notifications = await NotificationModel.model.getByUserAndLimit(currentUserId, limit);
+        return await UserModel.getNormalUserDataById(contact.contactId);
+      })
+      console.log( await Promise.all(users))
+      resovle(await Promise.all(users));
+
+    } catch (error) {
+      return reject(error);
+    }
+  });
+};
+
+let readMoreContactsRecieved = (currentUserId, skipNumberContacts) => {
+  return new Promise(async (resovle, reject) => {
+    try {
+      let newContacts = await ContactModel.readMoreContactsRecieved(currentUserId, skipNumberContacts, LIMIT_NUMBER);
+      // console.log(newNotifications);
+      let users = newContacts.map(async (contact) => {
+
+        return await UserModel.getNormalUserDataById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
+      })
+      console.log( await Promise.all(users))
+      resovle(await Promise.all(users));
+
+    } catch (error) {
+      return reject(error);
+    }
+  });
+};
 
 
 
@@ -180,5 +246,8 @@ module.exports = {
   getContactsReceived:getContactsReceived,
   countAllContacts:countAllContacts,
   countAllContactsSend:countAllContactsSend,
-  countAllContactsReceive:countAllContactsReceive
+  countAllContactsReceive:countAllContactsReceive,
+  readMoreContacts:readMoreContacts,
+  readMoreContactsSend:readMoreContactsSend,
+  readMoreContactsRecieved:readMoreContactsRecieved
 };
