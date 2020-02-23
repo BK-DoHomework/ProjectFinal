@@ -125,6 +125,38 @@ ContactSchema.statics = {
 
   },
 
+  readMoreContacts(userId,skip,limit){
+    return this.find({
+      $and: [
+        { $or:[
+          {"userId":userId},
+          {"contactId":userId} //ban bef thi khong phan biet ai gui truoc gui va ai nhan
+        ]},
+        { "status": true }
+      ]
+    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
+
+  },
+  readMoreContactsSend(userId,skip,limit){
+    return this.find({
+      $and: [
+        { "userId": userId },
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
+
+  },
+
+  readMoreContactsRecieved(userId,skip,limit){
+    return this.find({
+      $and: [
+        { "contactId": userId },
+        { "status": false }
+      ]
+    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
+  }
+
+
 
 };
 
