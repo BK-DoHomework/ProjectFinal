@@ -33,9 +33,9 @@ $(document).ready(function () {
                                                             </div>
                                                             <br>
                                                             <div class="user-address">
-                                                              <span>&nbsp ${(user.address !==null) ? user.address:""}.</span>
+                                                              <span>&nbsp ${(user.address !==null) ? user.address:""}</span>
                                                             </div>
-                                                            <div class="user-remove-request-sent action-danger" data-uid="${user._id}">
+                                                            <div class="user-remove-request-contact action-danger display-important" data-uid="${user._id}">
                                                               Hủy yêu cầu
                                                             </div>
                                                           </div>
@@ -43,6 +43,7 @@ $(document).ready(function () {
           `);//modal notif
 
         })
+        removeRequestContact();
         $(".read-more-contact-send-loader").css("display", "none");
         $("#link-read-more-contacts-send").css("display", "inline-block");
 
