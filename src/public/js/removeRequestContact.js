@@ -13,6 +13,9 @@ function removeRequestContact() {
           $("#find-user").find(`div.user-remove-request-contact[data-uid=${targetId}]`).hide(); //tim den cai no do va an di :v
           $("#find-user").find(`div.user-add-new-contact[data-uid=${targetId}]`).css('display', 'inline-block') //tim den cai no do va an di :v
           //xu li realtime
+
+          decreaseNumberNotification("noti_contact_counter", 1);
+
           decreaseNumberNotisContact("count-request-contact-sent");
           $("#request-contact-sent").find(`li[data-uid = ${targetId}]`).remove();
 

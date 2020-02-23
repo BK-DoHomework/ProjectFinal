@@ -237,6 +237,27 @@ let readMoreContactsRecieved = (currentUserId, skipNumberContacts) => {
 
 
 
+let removeRequestContactReceived = (currentUserId, contactId) => {
+  return new Promise(async (resovle,reject)=>{
+    let removeReq= await ContactModel.removeRequestContactReceived(currentUserId,contactId);
+    // console.log(removeReq.result); ==>n = 0 or n=1
+
+    if(removeReq.result.n===0){
+      return reject (false);
+    }
+
+    //remove notification
+
+    // let notificationType =NotificationModel.type.ADD_CONTACT;
+    // await NotificationModel.model.removeRequestContactReceivedNotification(currentUserId,contactId,notificationType); //export theo dang doi tuong
+
+
+    resovle(true);
+  });
+
+};
+
+
 module.exports = {
   findUserContact: findUserContact,
   addNew:addNew,
@@ -249,5 +270,6 @@ module.exports = {
   countAllContactsReceive:countAllContactsReceive,
   readMoreContacts:readMoreContacts,
   readMoreContactsSend:readMoreContactsSend,
-  readMoreContactsRecieved:readMoreContactsRecieved
+  readMoreContactsRecieved:readMoreContactsRecieved,
+  removeRequestContactReceived:removeRequestContactReceived
 };

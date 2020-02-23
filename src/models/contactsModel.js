@@ -154,7 +154,18 @@ ContactSchema.statics = {
         { "status": false }
       ]
     }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
-  }
+  },
+
+
+
+  removeRequestContactReceived(userId, contactId) {
+    return this.remove({
+      $and: [
+        { "userId": contactId },
+        { "contactId": userId }
+      ]
+    })
+  },
 
 
 
