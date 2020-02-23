@@ -1,6 +1,6 @@
 function removeRequestContact() {
 
-  $(".user-remove-request-contact").bind("click", function () {
+  $(".user-remove-request-contact").unbind("click").on("click", function () {
     let targetId = $(this).data("uid");//data-uid
     console.log(targetId);
 
@@ -36,4 +36,9 @@ socket.on("respone-remove-request-contact", function (user) {
   decreaseNumberNotification("noti_contact_counter", 1);
   decreaseNumberNotification("noti_counter", 1);
   $("#request-contact-received").find(`li[data-uid = ${user.id}]`).remove();
+});
+
+
+$(document).ready(function(){
+  removeRequestContact();
 });

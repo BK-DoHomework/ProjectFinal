@@ -13,6 +13,7 @@ function addContact() {
 
         let userInfoHTML = $("#find-user").find(`ul li[data-uid = ${targetId}]`).get(0).outerHTML; // console.log(userInfoHTML);
         $("#request-contact-sent").find("ul").prepend(userInfoHTML);
+        removeRequestContact();
 
         socket.emit("add-new-contact", { contactId: targetId })  //ten sk /ts
 
@@ -48,7 +49,7 @@ socket.on("respone-add-new-contact", function (user) {
                         </div>
                         <br>
                         <div class="user-address">
-                          <span>&nbsp ${user.address}.</span>
+                          <span>&nbsp ${user.address}</span>
                         </div>
                         <div class="user-acccept-contact-received" data-uid="${user.id}">
                           Chấp nhận
