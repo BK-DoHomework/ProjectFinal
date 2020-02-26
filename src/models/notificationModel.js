@@ -24,7 +24,7 @@ let NotificationSchema = new Schema({
 
 NotificationSchema.statics = {
   createNew(item) {
-    return this.create(item); // sử dụng hàm create có sẵn của mogoDB
+    return this.create(item); // sử dụng hàm create có sẵn của mongoDB
   },
   removeRequestContactNotification(senderId,receiverId,type){
     return this.remove({
@@ -74,7 +74,8 @@ NotificationSchema.statics = {
 };
 
 const NOTIFICATION_TYPE= {
-  ADD_CONTACT : "add_contact"
+  ADD_CONTACT : "add_contact",
+  APPROVE_CONTACT : "approve_contact"
 
 }
 const NOTIFICATION_CONTENT ={
@@ -94,7 +95,9 @@ const NOTIFICATION_CONTENT ={
       </div>`
     }
     return "No matching with any notification !!"
-  }
+  },
+
+
 }
 
 module.exports = {

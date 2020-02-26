@@ -23,7 +23,8 @@ ContactSchema.statics = {
     return this.find({
       $or: [
         { "userId": userId },
-        { "contactId": userId }
+        { "contactId": userId },
+        { "status" :false}
       ]
 
     }).exec();
@@ -56,16 +57,18 @@ ContactSchema.statics = {
         { "userId": userId },
         { "contactId": contactId }
       ]
-    })
+    }).exec();
   },
   //lay ra cac ban ghi da la ban be
   getContacts(userId, limit) {
     return this.find({
       $and: [
-        { $or:[
-          {"userId":userId},
-          {"contactId":userId} //ban bef thi khong phan biet ai gui truoc gui va ai nhan
-        ]},
+        {
+          $or: [
+            { "userId": userId },
+            { "contactId": userId } //ban bef thi khong phan biet ai gui truoc gui va ai nhan
+          ]
+        },
         { "status": true }
       ]
     }).sort({ "createdAt": -1 }).limit(limit).exec();
@@ -95,10 +98,12 @@ ContactSchema.statics = {
   countAllContacts(userId) {
     return this.count({
       $and: [
-        { $or:[
-          {"userId":userId},
-          {"contactId":userId} //ban bef thi khong phan biet ai gui truoc gui va ai nhan
-        ]},
+        {
+          $or: [
+            { "userId": userId },
+            { "contactId": userId } //ban bef thi khong phan biet ai gui truoc gui va ai nhan
+          ]
+        },
         { "status": true }
       ]
     }).exec();
@@ -125,19 +130,21 @@ ContactSchema.statics = {
 
   },
 
-  readMoreContacts(userId,skip,limit){
+  readMoreContacts(userId, skip, limit) {
     return this.find({
       $and: [
-        { $or:[
-          {"userId":userId},
-          {"contactId":userId} //ban bef thi khong phan biet ai gui truoc gui va ai nhan
-        ]},
+        {
+          $or: [
+            { "userId": userId },
+            { "contactId": userId } //ban bef thi khong phan biet ai gui truoc gui va ai nhan
+          ]
+        },
         { "status": true }
       ]
     }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
 
   },
-  readMoreContactsSend(userId,skip,limit){
+  readMoreContactsSend(userId, skip, limit) {
     return this.find({
       $and: [
         { "userId": userId },
@@ -147,7 +154,7 @@ ContactSchema.statics = {
 
   },
 
-  readMoreContactsRecieved(userId,skip,limit){
+  readMoreContactsRecieved(userId, skip, limit) {
     return this.find({
       $and: [
         { "contactId": userId },
@@ -156,16 +163,29 @@ ContactSchema.statics = {
     }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
   },
 
-
-
   removeRequestContactReceived(userId, contactId) {
     return this.remove({
       $and: [
         { "userId": contactId },
-        { "contactId": userId }
+        { "contactId": userId },
+        { "status": false }
       ]
-    })
+    }).exec();
   },
+  approveRequestContactReceived(userId, contactId) {
+    return this.update({
+      $and:[
+        { "contactId": userId },
+
+        { "userId": contactId },
+
+        {"status":false}
+      ]
+    },{"status":true}).exec();
+  }
+
+
+
 
 
 
