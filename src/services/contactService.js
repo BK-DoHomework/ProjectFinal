@@ -52,6 +52,25 @@ let addNew = (currentUserId, contactId) => {
   });
 };
 
+
+
+let removeContact = (currentUserId, contactId) => {
+  return new Promise(async (resovle, reject) => {
+    let removeContact = await ContactModel.removeContact(currentUserId, contactId);
+    console.log(removeContact.result);
+
+    if (removeContact.result.n === 0) {
+      return reject(false);
+    }
+
+    resovle(true);
+  });
+
+};
+
+
+
+
 let removeRequestContact = (currentUserId, contactId) => {
   return new Promise(async (resovle, reject) => {
     let removeReq = await ContactModel.removeRequestContact(currentUserId, contactId);
@@ -294,5 +313,6 @@ module.exports = {
   readMoreContactsSend: readMoreContactsSend,
   readMoreContactsRecieved: readMoreContactsRecieved,
   removeRequestContactReceived: removeRequestContactReceived,
-  approveRequestContactReceived: approveRequestContactReceived
+  approveRequestContactReceived: approveRequestContactReceived,
+  removeContact:removeContact
 };

@@ -48,6 +48,21 @@ let addNew = async (req, res) => {
 
 }
 
+let removeContact= async (req,res)=>{
+  try {
+    let currentUserId = req.user._id;
+    let contactId = req.body.uid;
+
+    let removeContact = await contact.removeContact(currentUserId, contactId);
+    // console.log(newContact);
+    // console.log(!!newContact)
+
+    return res.status(200).send({success: !!removeContact}) //tra ve true or false
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 let removeRequestContact = async (req, res) => {
 
 
@@ -173,5 +188,6 @@ module.exports = {
   readMoreContactsSend:readMoreContactsSend,
   readMoreContactsRecieved:readMoreContactsRecieved,
   removeRequestContactReceived:removeRequestContactReceived,
-  approveRequestContactReceived:approveRequestContactReceived
+  approveRequestContactReceived:approveRequestContactReceived,
+  removeContact:removeContact
 }

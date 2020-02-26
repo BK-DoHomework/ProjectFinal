@@ -50,6 +50,31 @@ ContactSchema.statics = {
     }).exec();
 
   },
+  //xoa lien he => co the la userId , co the la contactId
+
+  removeContact(userId,contactId){
+    return this.remove({
+      $or: [
+        {
+          $and: [
+            { "userId": userId },
+            { "contactId": contactId },
+            {"status" :true}
+          ]
+        },
+        {
+          $and: [
+            { "userId": contactId },
+            { "contactId": userId },
+            {"status" :true}
+          ]
+        }
+
+      ]
+    }).exec();
+  },
+
+
   //xoa cac yeu cau
   removeRequestContact(userId, contactId) {
     return this.remove({

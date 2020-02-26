@@ -27,6 +27,7 @@ function approveRequestContactReceived() {
           decreaseNumberNotisContact("count-request-contact-received");
           increaseNumberNotisContact("count-contacts");
           decreaseNumberNotification("noti_contact_counter", 1);
+          removeContact();
 
 
           socket.emit("approve-request-contact-received", { contactId: targetId })  //ten sk /ts
@@ -84,6 +85,7 @@ socket.on("respone-approve-request-contact-received", function (user) {
                         </li>`;
 
   $("#contacts").find("ul").prepend(userInforHTML);
+  removeContact();
 
 });
 
