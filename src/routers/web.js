@@ -71,6 +71,9 @@ let initRouter = (app) => {
   router.delete("/contact/remove-request-contact", auth.checkLoggedIn, contact.removeRequestContact);
 
   router.delete("/contact/remove-request-contact-received", auth.checkLoggedIn, contact.removeRequestContactReceived);
+
+
+  router.delete("/contact/remove-contact", auth.checkLoggedIn, contact.removeContact);
   router.put("/contact/approve-request-contact-received", auth.checkLoggedIn, contact.approveRequestContactReceived);
 
 
