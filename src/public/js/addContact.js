@@ -52,7 +52,7 @@ socket.on("respone-add-new-contact", function (user) {
                         <div class="user-address">
                           <span>&nbsp ${user.address}</span>
                         </div>
-                        <div class="user-acccept-contact-received" data-uid="${user.id}">
+                        <div class="user-approve-request-contact-received" data-uid="${user.id}">
                           Chấp nhận
                         </div>
                         <div class="user-remove-request-contact-received action-danger" data-uid="${user.id}">
@@ -64,6 +64,8 @@ socket.on("respone-add-new-contact", function (user) {
 
   $("#request-contact-received").find("ul").prepend(userInfoHTML);
   removeRequestContactReceived();
+
+  approveRequestContactReceived();
 
 
 });
