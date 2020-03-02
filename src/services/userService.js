@@ -13,7 +13,7 @@ let updateUser = (id, item) => {
 //update user password {id:userId, iteam:updatedAt}
 let updatePassword = (id, item) => {
   return new Promise(async (resovle, reject) => {
-    let currentUser = await UserModel.findUserById(id);
+    let currentUser = await UserModel.findUserByIdToUpdatePassword(id);
 
     //khong ton tai user
     if (!currentUser) {

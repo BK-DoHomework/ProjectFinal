@@ -59,9 +59,16 @@ UserSchema.statics = {
 
     ).exec();
   },
-  findUserById(id) {
+  findUserByIdToUpdatePassword(id) {
+    return this.findById(id,{
+      "local.password":0
+    }).exec();
+  },
+
+  findUserByIdForSesstionToUse(id) {
     return this.findById(id).exec();
   },
+
   findByFacebookUid(uid) {
     return this.findOne({ "facebook.uid": uid }).exec();
   },
@@ -109,7 +116,7 @@ UserSchema.statics = {
     }).exec();
   },
 
- 
+
 
 
 
