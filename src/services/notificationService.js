@@ -2,7 +2,7 @@ import NotificationModel from "../models/notificationModel";
 import UserModel from "../models/userModel";
 
 
-const LIMIT_NUMBER = 1;
+const LIMIT_NUMBER = 10;
 
 //lay ra cac ban gi khi nguoi dung reload trang
 

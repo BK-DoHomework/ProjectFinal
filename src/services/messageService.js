@@ -14,11 +14,11 @@ let getAllConverstionItems = (currentUserId) => {
       let userConversationPromise = contacts.map(async (contact) => {
         if (contact.contactId == currentUserId) {
           let getUserContact= await UserModel.getNormalUserDataById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
-          getUserContact.createdAt =contact.createdAt;//lay obj nem vao
+          getUserContact.updatedAt =contact.updatedAt;//lay obj nem vao
           return getUserContact;
         } else {
           let getUserContact= await UserModel.getNormalUserDataById(contact.contactId)
-          getUserContact.createdAt =contact.createdAt;//lay obj nem vao
+          getUserContact.updatedAt =contact.updatedAt;//lay obj nem vao
           return getUserContact;
         }
 
@@ -33,7 +33,7 @@ let getAllConverstionItems = (currentUserId) => {
       let allConversations = userConversation.concat(groupConversations);//merge 2 mang
 
       allConversations =_.sortBy(allConversations,(item)=>{
-        return -item.createdAt; //sap xep tu lon --->be
+        return -item.updatedAt; //sap xep tu lon --->be
       })
 
 
