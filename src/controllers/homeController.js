@@ -1,4 +1,5 @@
 import { notification,contact,message } from "../services/index";
+import {bufferToBase64} from "../helpers/clientHelper";
 
 let getHome = async (req, res) => {
 
@@ -28,6 +29,8 @@ let getHome = async (req, res) => {
   let userConversation=getAllConverstionItems.userConversation;
   let groupConversations=getAllConverstionItems.groupConversations;
   let allConversations=getAllConverstionItems.allConversations;
+  //all message,max 30 items
+  let allConversationWithMessages =getAllConverstionItems.allConversationWithMessages;
 
 
 
@@ -46,7 +49,9 @@ let getHome = async (req, res) => {
     getAllConverstionItems:getAllConverstionItems,
     userConversation:userConversation,
     groupConversations:groupConversations,
-    allConversations:allConversations
+    allConversations:allConversations,
+    allConversationWithMessages:allConversationWithMessages,
+    bufferToBase64:bufferToBase64
 
   });
 

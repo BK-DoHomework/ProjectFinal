@@ -167,6 +167,14 @@ function changeTypeChat(){
 
 }
 
+function changeScreenChat(){
+  $(".room-chat").unbind("click").on("click",function(){
+    $(".person").removeClass("active");
+    $(this).find("li").addClass("active");
+    $(this).tab("show");
+  })
+}
+
 
 $(document).ready(function() {
   // Hide số thông báo trên đầu icon mở modal contact
@@ -205,4 +213,9 @@ $(document).ready(function() {
 
   //thay đổi kiểu trò chuyện
   changeTypeChat();
+  //thay goi man hinh chat
+  changeScreenChat();
+
+  //click vao phan tu dau tin cua cuoc tro chuyen khi reload
+  $("ul.people").find("li").first().click();
 });

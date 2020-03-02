@@ -54,7 +54,9 @@ let updateAvatar = (req, res) => {
       let userUpdate = await user.updateUser(req.user._id, updateUserItem);
       //remove avatar cu di
 
-      await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`);
+      // await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`); //khong xoa avatar cu vi trong message can dc su dung 
+
+
       let result = {
         message: transSuccess.user_info_updated,
         imageSrc: `images/users/${req.file.filename}`
