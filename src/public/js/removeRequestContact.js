@@ -2,7 +2,7 @@ function removeRequestContact() {
 
   $(".user-remove-request-contact").unbind("click").on("click", function () {
     let targetId = $(this).data("uid");//data-uid
-    console.log(targetId);
+    // console.log(targetId);
 
     $.ajax({
       url: "/contact/remove-request-contact",

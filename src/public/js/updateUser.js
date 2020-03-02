@@ -217,7 +217,7 @@ function callUpdateUserAvartar() {
     processData: false,
     data: userAvatar,
     success: function (result) {
-      console.log(result)
+      // console.log(result)
       //diplay success
       $('.user-modal-alert-success').find("span").text(result.message);
       $('.user-modal-alert-success').css("display", "block");
@@ -232,7 +232,7 @@ function callUpdateUserAvartar() {
     },
     error: function (error) {
       //diplay erros
-      console.log(error);
+      // console.log(error);
       $('.user-modal-alert-error').find("span").text(error.responseText);
       $('.user-modal-alert-error').css("display", "block");
       //ghi de
@@ -256,7 +256,7 @@ function callUpdateUserInfo() {
 
     data: userInfo,
     success: function (result) {
-      console.log(result)
+      // console.log(result)
       //diplay success
       $('.user-modal-alert-success').find("span").text(result.message);
       $('.user-modal-alert-success').css("display", "block");
@@ -273,7 +273,7 @@ function callUpdateUserInfo() {
     },
     error: function (error) {
       //diplay erros
-      console.log(error);
+      // console.log(error);
       $('.user-modal-alert-error').find("span").text(error.responseText);
       $('.user-modal-alert-error').css("display", "block");
       //ghi de
@@ -294,7 +294,7 @@ function callUpdateUserPassword(){
 
     data: userUpdatePassword,
     success: function (result) {
-      console.log(result)
+      // console.log(result)
       //diplay success
       $('.user-modal-password-alert-success').find("span").text(result.message);
       $('.user-modal-password-alert-success').css("display", "block");
@@ -308,7 +308,7 @@ function callUpdateUserPassword(){
     },
     error: function (error) {
       //diplay erros
-      console.log(error);
+      // console.log(error);
       $('.user-modal-password-alert-error').find("span").text(error.responseText);
       $('.user-modal-password-alert-error').css("display", "block");
       //ghi de

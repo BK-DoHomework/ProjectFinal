@@ -2,7 +2,7 @@ function removeContact() {
 
   $(".user-remove-contact").unbind("click").on("click", function () {
     let targetId = $(this).data("uid");//data-uid
-    console.log(targetId);
+    // console.log(targetId);
     let username= $(this).parent().find("div.user-name p").text();
 
     Swal.fire({

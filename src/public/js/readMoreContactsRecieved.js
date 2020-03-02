@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     $(".read-more-contact-recieved-loader").css("display", "inline-block");
     $("#link-read-more-contact-received").css("display", "none");
-    console.log(skipNumber)
+    // console.log(skipNumber)
 
     setTimeout(() => {
       // $.get(`/notification/read-more/${skipNumber}`)
@@ -20,7 +20,7 @@ $(document).ready(function () {
           return false;
         }
         newContactsUser.forEach(function (user) {
-          console.log(user);
+          // console.log(user);
           $("#request-contact-received").find("ul").append(`<li class="_contactList" data-uid="${user._id}">
                                                               <div class="contactPanel">
                                                                 <div class="user-avatar">
@@ -46,9 +46,9 @@ $(document).ready(function () {
           `);//modal notif
 
         })
-
-        removeRequestContactReceived();
         approveRequestContactReceived();
+        removeRequestContactReceived();
+
         $(".read-more-contact-recieved-loader").css("display", "none");
         $("#link-read-more-contact-received").css("display", "inline-block");
 

@@ -3,7 +3,7 @@ function callFindUser(element) {
 
     let keyword = $('#input-find-users-contact').val();
     let regexKeyword = new RegExp(/^[\s0-9a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]+$/)
-    console.log(keyword);
+    // console.log(keyword);
 
     if(!keyword.length){
       alertify.notify("Chưa nhập nội dung tìm kiếm !", "error", 7);
