@@ -49,7 +49,7 @@ let initPassportLocal = ()=>{
 
   passport.deserializeUser((id,done)=>{
     //lay dc sesstion da luu
-    UserModel.findUserById(id)
+    UserModel.findUserByIdToUpdatePassword(id)
       .then(user=>{
 
         return done(null,user); //tham so loi va tham so success
