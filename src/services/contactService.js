@@ -4,7 +4,7 @@ import NotificationModel from "../models/notificationModel";
 import _ from "lodash";
 
 
-const LIMIT_NUMBER = 1;
+const LIMIT_NUMBER = 10;
 
 let findUserContact = (currentUserId, keyword) => {
   return new Promise(async (resovle, reject) => {
@@ -57,7 +57,7 @@ let addNew = (currentUserId, contactId) => {
 let removeContact = (currentUserId, contactId) => {
   return new Promise(async (resovle, reject) => {
     let removeContact = await ContactModel.removeContact(currentUserId, contactId);
-    console.log(removeContact.result);
+    // console.log(removeContact.result);
 
     if (removeContact.result.n === 0) {
       return reject(false);
@@ -227,7 +227,7 @@ let readMoreContactsSend = (currentUserId, skipNumberContacts) => {
         // let notifications = await NotificationModel.model.getByUserAndLimit(currentUserId, limit);
         return await UserModel.getNormalUserDataById(contact.contactId);
       })
-      console.log(await Promise.all(users))
+      // console.log(await Promise.all(users))
       resovle(await Promise.all(users));
 
     } catch (error) {
@@ -245,7 +245,7 @@ let readMoreContactsRecieved = (currentUserId, skipNumberContacts) => {
 
         return await UserModel.getNormalUserDataById(contact.userId) // trong ung dung cua minh thi thang kia la contactId
       })
-      console.log(await Promise.all(users))
+      // console.log(await Promise.all(users))
       resovle(await Promise.all(users));
 
     } catch (error) {
@@ -279,7 +279,7 @@ let approveRequestContactReceived = (currentUserId, contactId) => {
   return new Promise(async (resovle, reject) => {
     let approveReq = await ContactModel.approveRequestContactReceived(currentUserId, contactId);
     // console.log(approveReq.result); ==>n = 0 or n=1
-    console.log(approveReq);
+    // console.log(approveReq);
     if (approveReq.nModified === 0) {
       return reject(false);
     }

@@ -63,7 +63,7 @@ let updateAvatar = (req, res) => {
       return res.status(200).send(result);
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return res.status(500).send(error);
     }
 
@@ -128,7 +128,7 @@ let updatePassword =async(req,res)=>{
     // console.log(errorsArr);
     return res.status(500).send(errorsArr);
   }
-  console.log(req.body);
+  // console.log(req.body);
   try {
     let updateUserItem =req.body;
     await user.updatePassword(req.user._id, updateUserItem);
@@ -141,7 +141,7 @@ let updatePassword =async(req,res)=>{
     return res.status(200).send(result);
 
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).send(error);
 
   }

@@ -94,6 +94,20 @@ const NOTIFICATION_CONTENT ={
       <strong>${ username }</strong> đã gửi bạn lời mời kết bạn !
       </div>`
     }
+
+
+    if(notificationType===NOTIFICATION_TYPE.APPROVE_CONTACT){
+      if(!isRead){
+        return `<div class="notif_readed_false" data-uid="${ userId }">
+        <img class="avatar-small" src="images/users/${ userAvatar }" alt="">
+        <strong>${ username }</strong> đã chấp nhận lời mời kết bạn !
+        </div>`
+      }
+      return `<div data-uid="${ userId }">
+      <img class="avatar-small" src="images/users/${ userAvatar }" alt="">
+      <strong>${ username }</strong> đã chấp nhận lời mời kết bạn !
+      </div>`
+    }
     return "No matching with any notification !!"
   },
 

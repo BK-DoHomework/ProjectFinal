@@ -13,7 +13,7 @@ let findUserContact = async (req, res) => {
     erros.forEach((item) => {
       errorsArr.push(item.msg); // đẩy msg vào trong 1 cái mảng rỗng đã khai báo sẵn
     })
-    console.log(errorsArr);
+    // console.log(errorsArr);
     return res.status(500).send(errorsArr); // => khi có lỗi xảy ra thì vẫn trả về trang login nhưng thêm vào là cái mảng lỗi "error" trong flash
   }
 
@@ -21,7 +21,7 @@ let findUserContact = async (req, res) => {
     let currentUserId = req.user._id;
     let keyword = req.params.keyword;
     let users = await contact.findUserContact(currentUserId, keyword);
-    console.log(users);
+    // console.log(users);
 
     return res.render("main/contact/sections/_fileUserAddContact", { users })
 
@@ -38,8 +38,8 @@ let addNew = async (req, res) => {
     let currentUserId = req.user._id;
     let contactId = req.body.uid;
     let newContact = await contact.addNew(currentUserId, contactId);
-    console.log(newContact);
-    console.log(!!newContact)
+    // console.log(newContact);
+    // console.log(!!newContact)
 
     return res.status(200).send({success: !!newContact}) //tra ve true or false
   } catch (error) {
@@ -111,7 +111,7 @@ let readMoreContactsSend = async (req, res) => {
     //get skip number query params
     let skipNumberContacts = +(req.query.skipNumber);
     let newContactsUser = await contact.readMoreContactsSend(req.user._id, skipNumberContacts);
-    console.log(newContactsUser);
+    // console.log(newContactsUser);
 
     return res.status(200).send(newContactsUser);
 
@@ -129,7 +129,7 @@ let readMoreContactsRecieved = async (req, res) => {
     //get skip number query params
     let skipNumberContacts = +(req.query.skipNumber);
     let newContactsUser = await contact.readMoreContactsRecieved(req.user._id, skipNumberContacts);
-    console.log(newContactsUser);
+    // console.log(newContactsUser);
 
     return res.status(200).send(newContactsUser);
 

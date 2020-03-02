@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     $(".read-more-contacts-loader").css("display", "inline-block");
     $("#link-read-more-contacts").css("display", "none");
-    console.log(skipNumber)
+    // console.log(skipNumber)
 
     setTimeout(() => {
       // $.get(`/notification/read-more/${skipNumber}`)
@@ -20,7 +20,7 @@ $(document).ready(function () {
           return false;
         }
         newContactsUser.forEach(function (user) {
-          console.log(user);
+          // console.log(user);
           $("#contacts").find("ul").append(`<li class="_contactList" data-uid="${user._id}">
                                               <div class="contactPanel">
                                                 <div class="user-avatar">

@@ -51,7 +51,7 @@ let register = (email, gender, password, protocol, host) => {
       .catch(async (error) => {
         //remove user
         await UserModel.removeById(user._id); // mongo khai bao la _id
-        console.log(error);
+        // console.log(error);
         reject(transMail.send_failed);
 
       })

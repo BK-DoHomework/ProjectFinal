@@ -4,7 +4,7 @@ function markNotificationAsRead(targetUsers) {
     type: "put",
     data: { targetUsers: targetUsers },
     success: function (result) {
-      console.log(result);
+      // console.log(result);
       if (result) {
         targetUsers.forEach(function (uid) {
           $(".noti_content").find(`div[data-uid=${uid}]`).removeClass("notif_readed_false");
@@ -29,8 +29,8 @@ $(document).ready(function () {
     if (!targetUsers.length) {
       alertify.notify("Bạn không còn thông báo nào chưa đọc nữa nữa !", "error", 7);
 
-      console.log("adasbdjhacbajbcjabcjakbczkjbczkjcbzkjcbzkcbzkcbzkcbzkbc");
-      console.log(targetUsers);
+      // console.log("adasbdjhacbajbcjabcjakbczkjbczkjcbzkjcbzkcbzkcbzkcbzkbc");
+      // console.log(targetUsers);
     }
     markNotificationAsRead(targetUsers);
   });
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     if (!targetUsers.length) {
       alertify.notify("Bạn không còn thông báo nào chưa đọc nữa nữa !", "error", 7);
-      console.log(targetUsers);
+      // console.log(targetUsers);
     }
     markNotificationAsRead(targetUsers);
 

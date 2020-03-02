@@ -2,7 +2,7 @@ function approveRequestContactReceived() {
 
   $(".user-approve-request-contact-received").unbind("click").on("click", function () {
     let targetId = $(this).data("uid");//data-uid
-    console.log(targetId);
+    // console.log(targetId);
 
     $.ajax({
       url: "/contact/approve-request-contact-received",
@@ -27,6 +27,7 @@ function approveRequestContactReceived() {
           decreaseNumberNotisContact("count-request-contact-received");
           increaseNumberNotisContact("count-contacts");
           decreaseNumberNotification("noti_contact_counter", 1);
+
           removeContact();
 
 
@@ -85,6 +86,7 @@ socket.on("respone-approve-request-contact-received", function (user) {
                         </li>`;
 
   $("#contacts").find("ul").prepend(userInforHTML);
+
   removeContact();
 
 });

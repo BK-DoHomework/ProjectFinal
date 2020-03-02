@@ -7,7 +7,7 @@ $(document).ready(function () {
     $("#link-read-more-notif").css("display", "none");
 
 
-    console.log(skipNumber)
+    // console.log(skipNumber)
 
     setTimeout(() => {
       // $.get(`/notification/read-more/${skipNumber}`)

@@ -1,7 +1,7 @@
 function addContact() {
   $(".user-add-new-contact").bind("click", function () {
     let targetId = $(this).data("uid");//data-uid
-    console.log(targetId);
+    // console.log(targetId);
 
     $.post("/contact/add-new", { uid: targetId }, function (data) {
       if (data.success) {
