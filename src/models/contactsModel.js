@@ -96,7 +96,7 @@ ContactSchema.statics = {
         },
         { "status": true }
       ]
-    }).sort({ "createdAt": -1 }).limit(limit).exec();
+    }).sort({ "updateAt": -1 }).limit(limit).exec();
   },
   //da gui di nhung chua la ban be
   getContactsSend(userId, limit) {
@@ -166,7 +166,7 @@ ContactSchema.statics = {
         },
         { "status": true }
       ]
-    }).sort({ "createdAt": -1 }).skip(skip).limit(limit).exec();
+    }).sort({ "updatedAt": -1 }).skip(skip).limit(limit).exec();
 
   },
   readMoreContactsSend(userId, skip, limit) {
@@ -206,7 +206,10 @@ ContactSchema.statics = {
 
         {"status":false}
       ]
-    },{"status":true}).exec();
+    },{
+      "status":true,
+      "updateAt":Date.now()
+    }).exec();
   }
 
 

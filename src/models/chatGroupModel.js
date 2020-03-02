@@ -10,7 +10,7 @@ let ChatGroupSchema = new Schema({
     { userId: String }
   ],
   createdAt: { type: Number, default: Date.now },
-  updatedAt: { type: Number, default: null },
+  updatedAt: { type: Number, default: Date.now },//khi tao cuoc tro chuyen nhom thi auto dc chap thuan :v
   deletedAt: { type: Number, default: null },
 
 });
@@ -23,7 +23,7 @@ ChatGroupSchema.statics ={
       "memberId":{$elemMatch:{
         "userId":userId
       }}
-    }).sort({"createdAt":-1}).limit(limit).exec();
+    }).sort({"updatedAt":-1}).limit(limit).exec();
   }
 }
 module.exports = mongoose.model("chat-group", ChatGroupSchema);
