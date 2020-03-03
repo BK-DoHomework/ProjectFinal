@@ -7,7 +7,8 @@ export const transValidation = {
   update_gender:"Opps!Trường giới tính đang có vấn đề !",
   update_address:"Giới hạn địa chỉ trong khoảng 3-30 kí tự",
   update_phone:"Số điện thoại việt nam bắt đầu tuwd số 0, và giớ hạn là 11 chữ số !",
-  keyword_find_user:"Tìm kiếm chỉ ấp dụng cho chữ cái, số, khoảng trắng ,không áp dụng cho các kí tự đặc biệt !"
+  keyword_find_user:"Tìm kiếm chỉ ấp dụng cho chữ cái, số, khoảng trắng ,không áp dụng cho các kí tự đặc biệt !",
+  message_text_emoji_error:"Tin nhắn không hợp lệ , đảm bảo tối thiêu 1 kí tự, tối đa 400 kí tự !"
 
 };
 
@@ -21,8 +22,8 @@ export const transErrors = {
   server_erross: "Lỗi server , vui lòng đăng nhập lại sau !Liên hệ với bộ phận hỗ trợ để đc giúp đỡ ",
   avatar_type: "Kiểu dữ liệu không hợp lệ !, chỉ chấp nhận jpg và png !",
   avatar_size:"Chỉ chấp nhận dạng dữ liệu dưới 1MB ",
-  user_current_password_failed:"Mật khẩu hiện tại của người dùng không chính xác !"
-
+  user_current_password_failed:"Mật khẩu hiện tại của người dùng không chính xác !",
+  conversation_not_found :"Cuộc trò chuyện không tồn tại !"
 }
 
 export const transSuccess = {

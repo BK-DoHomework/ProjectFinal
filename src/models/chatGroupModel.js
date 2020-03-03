@@ -24,6 +24,15 @@ ChatGroupSchema.statics ={
         "userId":userId
       }}
     }).sort({"updatedAt":-1}).limit(limit).exec();
+  },
+  getChatGroupById(id){
+    return this.findById(id).exec();
+  },
+  updateWhenHasNewMessage(id,newMesaggeAmount){
+    return this.findByIdAndUpdate(id,{
+      "mesaggeAmount":newMesaggeAmount,
+      "updatedAt":Date.now()
+    }).exec();
   }
 }
 module.exports = mongoose.model("chat-group", ChatGroupSchema);
