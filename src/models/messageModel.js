@@ -50,13 +50,13 @@ MessageSchema.statics={
         }]}
 
       ]
-    }).sort({"createdAt":1}).limit(limit).exec(); //sap xap theo thu tu tu duoi len tren
+    }).sort({"createdAt":-1}).limit(limit).exec(); //sap xap theo thu tu tu duoi len tren
   },
 
   getMessagesInGroup(receiverId,limit){ //ID cua 1 group chat cu the
     return this.find({
       "receiverId":receiverId
-    }).sort({"createdAt":1}).limit(limit).exec(); //sap xap theo thu tu tu duoi len tren
+    }).sort({"createdAt":-1}).limit(limit).exec(); //sap xap theo thu tu tu duoi len tren
   }
 }
 

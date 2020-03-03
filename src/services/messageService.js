@@ -46,10 +46,10 @@ let getAllConverstionItems = (currentUserId) => {
         conversation= conversation.toObject();
         if(conversation.memberId){
           let getMessages= await MessageModel.model.getMessagesInGroup(conversation._id,LIMIT_MESSAGE);
-          conversation.messages =getMessages;
+          conversation.messages =_.reverse(getMessages); //dao nguoc thu tu mang, do tin nhan tra ra la moi nhat ben duoi
         }else{
           let getMessages= await MessageModel.model.getMessagesInPersonal(currentUserId,conversation._id,LIMIT_MESSAGE);
-          conversation.messages =getMessages;
+          conversation.messages =_.reverse(getMessages);
         }
         return conversation;
       })
