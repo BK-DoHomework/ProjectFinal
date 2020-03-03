@@ -8,12 +8,12 @@ let MessageSchema = new Schema({
   messageType: String,
   sender: {
     id: String,
-    username: String,
+    name: String,
     avatar: String
   },
   receiver: {
     id: String,
-    username: String,
+    name: String,
     avatar: String
   },
   text: String,
@@ -34,7 +34,7 @@ const MESSAGE_TYPE= {
   FILE :"file "
 }
 MessageSchema.statics={
-  getMessages(senderId,receiverId,limit){ //currentId,contactId
+  getMessagesInPersonal(senderId,receiverId,limit){ //currentId,contactId
     return this.find({
       $or: [
         {$and :[{
@@ -47,6 +47,12 @@ MessageSchema.statics={
         }]}
 
       ]
+    }).sort({"createdAt":1}).limit(limit).exec(); //sap xap theo thu tu tu duoi len tren
+  },
+
+  getMessagesInGroup(receiverId,limit){ //ID cua 1 group chat cu the
+    return this.find({
+      "receiverId":receiverId
     }).sort({"createdAt":1}).limit(limit).exec(); //sap xap theo thu tu tu duoi len tren
   }
 }
