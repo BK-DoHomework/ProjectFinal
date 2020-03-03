@@ -34,6 +34,9 @@ const MESSAGE_TYPE= {
   FILE :"file "
 }
 MessageSchema.statics={
+  createNew(item) {
+    return this.create(item); // sử dụng hàm create có sẵn của mogoDB
+  },
   getMessagesInPersonal(senderId,receiverId,limit){ //currentId,contactId
     return this.find({
       $or: [

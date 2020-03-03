@@ -4,6 +4,8 @@ import UserModel from "../models/userModel";
 import ChatGroupModel from "../models/chatGroupModel";
 import MessageModel from "../models/messageModel"
 import _ from "lodash";
+import {transErrors} from "../../lang/vi";
+import {app} from "../config/app";
 
 
 const LIMIT_CONVERSATION = 10;
@@ -73,6 +75,71 @@ let getAllConverstionItems = (currentUserId) => {
   })
 };
 
+
+let addNewTextEmoji=(sender,receiverId,messageVal,isChatGroup)=>{ //current user,id of user or group
+  return new Promise(async (resovle, reject) => {
+    try {
+      if(isChatGroup){
+        let getChatGroupReceiver = await ChatGroupModel.getChatGroupById(receiverId);
+        if(!getChatGroupReceiver){
+          return reject(transErrors.conversation_not_found)
+        }
+        let receiver ={
+          id :getChatGroupReceiver._id,
+          name : getChatGroupReceiver.name,
+          avatar : app.avatar_image_group
+        }
+        let newMessageItems ={
+          senderId: sender.id,
+          receiverId:receiverId,
+          conversationType:MessageModel.coversationsType.GROUP,
+          messageType: MessageModel.messageTypes.TEXT,
+          sender:sender,
+          receiver:receiver,
+          text: messageVal,
+          createdAt: Date.now()
+        }
+        //create message
+        let newMessage = await MessageModel.model.createNew(newMessageItems);
+        //update group chat
+        await ChatGroupModel.updateWhenHasNewMessage(getChatGroupReceiver._id,getChatGroupReceiver.mesaggeAmount+1);
+        resovle(newMessage);
+      }else{
+        let getUserReceiver = await UserModel.getNormalUserDataById(receiverId);
+        if(!getUserReceiver){
+          return reject(transErrors.conversation_not_found)
+        }
+        let receiver ={
+          id :getUserReceiver._id,
+          name : getUserReceiver.username,
+          avatar :getUserReceiver.avatar
+        }
+        let newMessageItems ={
+          senderId: sender.id,
+          receiverId:receiverId,
+          conversationType:MessageModel.coversationsType.PERSONAL,
+          messageType: MessageModel.messageTypes.TEXT,
+          sender:sender,
+          receiver:receiver,
+          text: messageVal,
+          createdAt: Date.now()
+        }
+        //create newmessage
+        let newMessage = await MessageModel.model.createNew(newMessageItems);
+        //update Contact
+
+        await ContactModel.updateWhenHasNewMessage(sender.id,getUserReceiver._id);
+        resovle(newMessage);
+      }
+
+    } catch (error) {
+      return reject(error);
+    }
+  })
+};
+
+
 module.exports = {
-  getAllConverstionItems: getAllConverstionItems
+  getAllConverstionItems: getAllConverstionItems,
+  addNewTextEmoji:addNewTextEmoji
 }
