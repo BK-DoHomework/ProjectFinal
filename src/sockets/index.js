@@ -4,6 +4,8 @@ import removeRequestContactReceived from "./contact/removeRequestContactReceived
 
 import approveRequestContactReceived from "./contact/approveRequestContactReceived";
 import removeContact from "./contact/removeContact";
+import chatTextEmoji from "./chat/chatTextEmoji";
+
 
 
 //io params form socket.io
@@ -14,7 +16,7 @@ let initSockets = (io) => {
   removeRequestContactReceived(io);
   approveRequestContactReceived(io);
   removeContact(io);
-
+  chatTextEmoji(io);
 
 };
 
