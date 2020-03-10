@@ -65,6 +65,15 @@ function textAndEmojiChat(divId) {
 
                 socket.emit("chat-text-emoji-one", dataToEmit)
                 // console.log(dataToEmit);
+
+                //7 :removetyping realtime
+                typingOff(divId);
+
+                //8 :remove case :2 is typing
+                let checkTyping = $(`.chat[data-chat=${divId}]`).find("div.bubble-typing-gif")
+                if (checkTyping.length) {
+                    checkTyping.remove();
+                }
             }).fail(function (response) {
                 //error
                 //
@@ -132,5 +141,7 @@ $(document).ready(function () {
         });
         $(`.person[data-chat=${divId}]`).trigger("hustdev.moveConversationToTop");
         //6 : xử lí realtime
+        //7: nothing
+        //8: nothing
     });
 });
