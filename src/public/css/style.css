@@ -1617,3 +1617,8 @@ label:focus,
 .show-number-messages {
     color: #1a1a1a !important;
 }
+
+.message-time-realtime {
+    color: #e74c3c !important;
+    font-weight: bold;
+}

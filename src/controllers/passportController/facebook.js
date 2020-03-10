@@ -1,6 +1,7 @@
 import passport from "passport";
 import passportFacebook from "passport-facebook";
 import UserModel from "../../models/userModel";
+import ChatGroupModel from "../../models/chatGroupModel";
 import { transErrors, transSuccess, transMail } from "../../../lang/vi";
 
 let FacebookStrategy = passportFacebook.Strategy;
@@ -67,18 +68,18 @@ let initPassportFacebook = () => {
         done(null, user._id);
     });
 
-    passport.deserializeUser((id, done) => {
+    passport.deserializeUser(async(id, done) => {
         //lay dc sesstion da luu
-        UserModel.findUserByIdToUpdatePassword(id)
-            .then(user => {
+        try {
+            let user = await UserModel.findUserByIdToUpdatePassword(id);
+            let getChatGroupIds = await ChatGroupModel.getChatGroupIdsByUser(user._id);
 
-                return done(null, user); //tham so loi va tham so success
-            })
-
-        .catch(error => {
+            user = user.toObject();
+            user.chatGroupIds = getChatGroupIds;
+            return done(null, user); //tham so loi va tham so success
+        } catch (error) {
             return done(error, null);
-
-        })
+        }
 
     })
 

@@ -59,7 +59,7 @@ let getAllConverstionItems = (currentUserId) => {
                 return -item.updatedAt; //sap xep tu lon --->be
             });
 
-            console.log(allConversationWithMessages);
+            // console.log(allConversationWithMessages);
 
 
             resovle({

@@ -1,5 +1,5 @@
 function textAndEmojiChat(divId) {
-    $(".emojionearea").unbind("keyup").on("keyup", function(element) {
+    $(".emojionearea").unbind("keyup").on("keyup", function (element) {
         let currentEmojioneArea = $(this);
         if (element.which === 13) {
             let targetId = $(`#write-chat-${divId}`).data("chat");
@@ -11,17 +11,14 @@ function textAndEmojiChat(divId) {
                 uid: targetId,
                 messageVal: messageVal
             }
-
             if ($(`#write-chat-${divId}`).hasClass("chat-in-group")) {
                 dataTextEmojiForSend.isChatGroup = true;
             }
             //call send message
-
-            $.post("/messge/add-new-text-emoji", dataTextEmojiForSend, function(data) {
+            $.post("/messge/add-new-text-emoji", dataTextEmojiForSend, function (data) {
                 let dataToEmit = {
                     message: data.message,
                 };
-
                 // console.log(data.message);
                 //1:handle message data to show before
 
@@ -32,7 +29,7 @@ function textAndEmojiChat(divId) {
                     let senderMessage = data.message.text;
                     messageOfMe.html(`${senderAvatar} ${senderMessage}`);
                     // messageOfMe.text(data.message.text);
-                    increaseNumberMessageGroup(divId);
+                    // increaseNumberMessageGroup(divId);
 
                     dataToEmit.groupId = targetId;
                 } else {
@@ -41,7 +38,6 @@ function textAndEmojiChat(divId) {
                     dataToEmit.contactId = targetId;
                 }
                 //2:append mesage data to screen
-
                 $(`.right .chat[data-chat=${divId}]`).append(messageOfMe);
                 nineScrollRight(divId);
 
@@ -52,22 +48,24 @@ function textAndEmojiChat(divId) {
 
                 //4:change data in leftSide
 
-                $(`.person[data-chat=${divId}]`).find("span.time").html(moment(data.message.createdAt).locale("vi").startOf("seconds").fromNow());
+                $(`.person[data-chat=${divId}]`).find("span.time").removeClass("message-time-realtime").html(moment(data.message.createdAt).locale("vi").startOf("seconds").fromNow());
                 $(`.person[data-chat=${divId}]`).find("span.preview").html(data.message.text);
 
                 //5: move conversation to the top
 
-                $(`.person[data-chat=${divId}]`).on("click.moveConversationToTop", function() { //===>phân biệt được với sự kiện click khi thay đổi màn hình
+
+                $(`.person[data-chat=${divId}]`).on("hustdev.moveConversationToTop", function () { //===>phân biệt được với sự kiện click khi thay đổi màn hình
                     let dataToMove = $(this).parent(); //===>lấy ra cả thẻ cha là thằng a (not li)
                     $(this).closest("ul").prepend(dataToMove); // ==>tìm đến cái thẻ ul gần nhất sau đó đẩy dữ liệu lên đầu
-                    $(this).off("click.moveConversationToTop"); //==> đóng sự kiện
+                    $(this).off("hustdev.moveConversationToTop"); //==> đóng sự kiện
                 });
-                $(`.person[data-chat=${divId}]`).click();
+                $(`.person[data-chat=${divId}]`).trigger("hustdev.moveConversationToTop");
 
                 //6 : xử lí realtime
 
-                socket.emit("chat-text-emoji", dataToEmit);
-            }).fail(function(response) {
+                socket.emit("chat-text-emoji-one", dataToEmit)
+                // console.log(dataToEmit);
+            }).fail(function (response) {
                 //error
                 //
                 alertify.notify(response.responseText, "error", 7);
@@ -82,9 +80,9 @@ function textAndEmojiChat(divId) {
 }
 
 
-$(document).ready(function() {
-    socket.on("response-chat-text-emoji", function(response) {
-        console.log("lang nghe response :", response);
+$(document).ready(function () {
+    socket.on("response-chat-text-emoji-one", function (response) {
+        // console.log("lang nghe response :", response.currentUserId);
         let divId = "";
         //1:handle message data to show before
 
@@ -95,19 +93,25 @@ $(document).ready(function() {
             let senderMessage = response.message.text;
             messageOfYou.html(`${senderAvatar} ${senderMessage}`);
             // messageOfYou.text(data.message.text);
-            increaseNumberMessageGroup(divId);
+            if(response.currentUserId !== $("#dropdown-navbar-user").data("uid")){
+                // increaseNumberMessageGroup(divId);
+            }
+
             divId = response.currentGroupId;
 
         } else {
 
-            messageOfYou.text(data.message.text);
+            messageOfYou.text(response.message.text);
             divId = response.currentUserId
         }
 
         //2:append mesage data to screen
-
-        $(`.right .chat[data-chat=${divId}]`).append(messageOfYou);
-        nineScrollRight(divId);
+        if(response.currentUserId !== $("#dropdown-navbar-user").data("uid")){
+            // console.log("uid:",$("#dropdown-navbar-user").data("uid"))
+            $(`.right .chat[data-chat=${divId}]`).append(messageOfYou);
+            nineScrollRight(divId);
+            $(`.person[data-chat=${divId}]`).find("span.time").addClass("message-time-realtime");
+        }
 
 
         //3:remove data input
@@ -121,12 +125,12 @@ $(document).ready(function() {
 
         //5: move conversation to the top
 
-        $(`.person[data-chat=${divId}]`).on("click.moveConversationToTop", function() { //===>phân biệt được với sự kiện click khi thay đổi màn hình
+        $(`.person[data-chat=${divId}]`).on("hustdev.moveConversationToTop", function () { //===>phân biệt được với sự kiện click khi thay đổi màn hình
             let dataToMove = $(this).parent(); //===>lấy ra cả thẻ cha là thằng a (not li)
             $(this).closest("ul").prepend(dataToMove); // ==>tìm đến cái thẻ ul gần nhất sau đó đẩy dữ liệu lên đầu
-            $(this).off("click.moveConversationToTop"); //==> đóng sự kiện
+            $(this).off("hustdev.moveConversationToTop"); //==> đóng sự kiện
         });
-        $(`.person[data-chat=${divId}]`).click();
+        $(`.person[data-chat=${divId}]`).trigger("hustdev.moveConversationToTop");
         //6 : xử lí realtime
     });
 });

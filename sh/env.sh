@@ -8,7 +8,7 @@
 
 # config app environment variable
 export APP_HOST=localhost
-export APP_PORT=8017
+export APP_PORT=8007
 
 
 #config key section
@@ -35,6 +35,6 @@ export FB_CALLBACK_URL=https://localhost:8017/auth/facebook/callback
 
 export GG_APP_ID=973789902387-5l6dcv43vtpvsma1ian1lb2e6ob2n29j.apps.googleusercontent.com
 export GG_APP_SECRET=iuHPFvDeEYDpGc3Ydje05lf0
-export GG_CALLBACK_URL=https://localhost:8017/auth/google/callback
+export GG_CALLBACK_URL=https://localhost:80/auth/google/callback
 
 #sau khi GG xac thuc xong no se goi tro lai cai app cua chung ta
