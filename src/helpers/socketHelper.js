@@ -1,5 +1,4 @@
 export let pushSocketIdToArray = (clients, userId, socketId) => {
-
     //push socket id in arr
     if (clients[userId]) {
 
@@ -12,18 +11,14 @@ export let pushSocketIdToArray = (clients, userId, socketId) => {
 }
 
 export let emitNotifyToArray = (clients, userId, io, eventName, data) => {
-    clients[userId].forEach(socketId => {
-        return io.sockets.connected[socketId].emit(eventName, data);
-    })
+    clients[userId].forEach(socketId => io.sockets.connected[socketId].emit(eventName, data));
+
 
 }
 
 export let removeSocketArray = (clients, userId, socket) => {
 
-    clients[userId] = clients[userId].filter((socketId) => {
-
-        return socketId !== socket.id;
-    })
+    clients[userId] = clients[userId].filter(socketId => socketId !== socket.id);
 
     if (!clients[userId].length) {
         delete clients[userId];

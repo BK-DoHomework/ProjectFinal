@@ -11,13 +11,12 @@ import chatTextEmoji from "./chat/chatTextEmoji";
 //io params form socket.io
 let initSockets = (io) => {
 
-  addNewContact(io);
-  removeRequestContact(io);
-  removeRequestContactReceived(io);
-  approveRequestContactReceived(io);
-  removeContact(io);
-  chatTextEmoji(io);
-
+    addNewContact(io);
+    removeRequestContact(io);
+    removeRequestContactReceived(io);
+    approveRequestContactReceived(io);
+    removeContact(io);
+    chatTextEmoji(io);
 };
 
 module.exports = initSockets;
