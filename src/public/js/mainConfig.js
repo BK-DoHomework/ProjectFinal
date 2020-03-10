@@ -44,6 +44,12 @@ function enableEmojioneArea(divId) {
       click: function(){
         //bật lắng nghe DOM cho việc chat tin nhắn văn bản +emoji
         textAndEmojiChat(divId);
+        //typing on
+        typingOn(divId);
+      },
+      blur:function(){
+        //xoa typing off
+        typingOff(divId);
       }
     },
   });
