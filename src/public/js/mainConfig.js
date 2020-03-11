@@ -199,6 +199,8 @@ function changeScreenChat(){
     nineScrollRight(divId);
     // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
     enableEmojioneArea(divId);
+    //bat lang nghe Dom image chat
+    imageChat(divId);
   })
 }
 
