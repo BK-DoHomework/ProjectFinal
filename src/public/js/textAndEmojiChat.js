@@ -15,7 +15,7 @@ function textAndEmojiChat(divId) {
 				dataTextEmojiForSend.isChatGroup = true;
 			}
 			//call send message
-			$.post("/mesasge/add-new-text-emoji", dataTextEmojiForSend, function (data) {
+			$.post("/message/add-new-text-emoji", dataTextEmojiForSend, function (data) {
 				let dataToEmit = {
 					message: data.message,
 				};
@@ -34,7 +34,7 @@ function textAndEmojiChat(divId) {
 					dataToEmit.groupId = targetId;
 				} else {
 
-					messageOfMe.text(data.message.text);
+					messageOfMe.html(data.message.text);
 					dataToEmit.contactId = targetId;
 				}
 				//2:append mesage data to screen
@@ -110,7 +110,7 @@ $(document).ready(function () {
 
 		} else {
 
-			messageOfYou.text(response.message.text);
+			messageOfYou.html(response.message.text);
 			divId = response.currentUserId
 		}
 
