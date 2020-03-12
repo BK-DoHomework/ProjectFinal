@@ -32,13 +32,16 @@ $(document).ready(function () {
   socket.on("server-send-listener-is-offline", function () {
     alertify.notify("người dùng này hiện không trực tuyến, vui lòng gọi lại sau !", "error", 7);
   });
+  let iceServerList = $("#ice-server-list").val();
+
   let getPeerId = "";
   const peer = new Peer({
     key: "peerjs",
     host: "peerjs-server-trungquandev.herokuapp.com",
     secure: true,
     port: 443,
-    debug: 3
+    config : {"iceServers":JSON.parse(iceServerList)}
+    // debug: 3
 
   });
   // console.log(peer);
