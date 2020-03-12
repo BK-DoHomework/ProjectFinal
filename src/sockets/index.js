@@ -8,6 +8,11 @@ import chatTextEmoji from "./chat/chatTextEmoji";
 import typingOn from "./chat/typingOn";
 import typingOff from "./chat/typingOff";
 import chatImage from "./chat/chatImage";
+import chatVideo from "./chat/chatVideo";
+
+
+
+
 
 
 //io params form socket.io
@@ -22,6 +27,7 @@ let initSockets = (io) => {
     typingOn(io);
     typingOff(io);
     chatImage(io);
+    chatVideo(io);
 };
 
 module.exports = initSockets;

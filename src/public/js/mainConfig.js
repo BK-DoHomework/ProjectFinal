@@ -1,7 +1,7 @@
 /**
  * Created by https://trungquandev.com's author on 25/02/2018.
  */
-const socket =io();
+const socket = io();
 
 
 function nineScrollLeft() {
@@ -37,23 +37,23 @@ function enableEmojioneArea(divId) {
     search: false,
     shortnames: false,
     events: {
-      keyup: function(editor, event) {
+      keyup: function (editor, event) {
         //gán giá trị vào thẻ input đã bị ẩn
         $(`#write-chat-${divId}`).val(this.getText());
       },
-      click: function(){
+      click: function () {
         //bật lắng nghe DOM cho việc chat tin nhắn văn bản +emoji
         textAndEmojiChat(divId);
         //typing on
         typingOn(divId);
       },
-      blur:function(){
+      blur: function () {
         //xoa typing off
         typingOff(divId);
       }
     },
   });
-  $('.icon-chat').bind('click', function(event) {
+  $('.icon-chat').bind('click', function (event) {
     event.preventDefault();
     $('.emojionearea-button').click();
     $('.emojionearea-editor').focus();
@@ -70,35 +70,35 @@ function spinLoading() {
 
 function ajaxLoading() {
   $(document)
-    .ajaxStart(function() {
+    .ajaxStart(function () {
       spinLoading();
     })
-    .ajaxStop(function() {
+    .ajaxStop(function () {
       spinLoaded();
     });
 }
 
 function showModalContacts() {
-  $('#show-modal-contacts').click(function() {
+  $('#show-modal-contacts').click(function () {
     $(this).find('.noti_contact_counter').fadeOut('slow');
   });
 }
 
 function configNotification() {
-  $('#noti_Button').click(function() {
+  $('#noti_Button').click(function () {
     $('#notifications').fadeToggle('fast', 'linear');
     // $('.noti_counter').fadeOut('slow');
     return false;
   });
-  $(".main-content").click(function() {
+  $(".main-content").click(function () {
     $('#notifications').fadeOut('fast', 'linear');
   });
 }
 
 function gridPhotos(layoutNumber) {
-  $(".show-images").unbind("click").on("click",function(){
+  $(".show-images").unbind("click").on("click", function () {
     let href = $(this).attr("href");
-    let modalImageId =href.replace("#","");
+    let modalImageId = href.replace("#", "");
 
     let originDataImage = $(`#${modalImageId}`).find("div.modal-body").html();
 
@@ -109,7 +109,7 @@ function gridPhotos(layoutNumber) {
       rel: 'withhearts-gallery',
       gutter: '2px',
       layout: layoutStr,
-      onComplete: function() {
+      onComplete: function () {
         $(`#${modalImageId}`).find(".all-images").css({
           'visibility': 'visible'
         });
@@ -124,7 +124,7 @@ function gridPhotos(layoutNumber) {
 
     //bat su kien dong cai modal
     $(`#${modalImageId}`).on('hidden.bs.modal', function () {
-     $(this).find("div.modal-body").html(originDataImage);
+      $(this).find("div.modal-body").html(originDataImage);
     });
   })
 
@@ -142,48 +142,48 @@ function gridPhotos(layoutNumber) {
 // }
 
 function addFriendsToGroup() {
-  $('ul#group-chat-friends').find('div.add-user').bind('click', function() {
+  $('ul#group-chat-friends').find('div.add-user').bind('click', function () {
     let uid = $(this).data('uid');
     $(this).remove();
     let html = $('ul#group-chat-friends').find('div[data-uid=' + uid + ']').html();
 
-    let promise = new Promise(function(resolve, reject) {
+    let promise = new Promise(function (resolve, reject) {
       $('ul#friends-added').append(html);
       $('#groupChatModal .list-user-added').show();
       resolve(true);
     });
-    promise.then(function(success) {
+    promise.then(function (success) {
       $('ul#group-chat-friends').find('div[data-uid=' + uid + ']').remove();
     });
   });
 }
 
 function cancelCreateGroup() {
-  $('#cancel-group-chat').bind('click', function() {
+  $('#cancel-group-chat').bind('click', function () {
     $('#groupChatModal .list-user-added').hide();
     if ($('ul#friends-added>li').length) {
-      $('ul#friends-added>li').each(function(index) {
+      $('ul#friends-added>li').each(function (index) {
         $(this).remove();
       });
     }
   });
 }
 
-function flashMasterNotify (){
+function flashMasterNotify() {
   let notify = $(".master-success-message").text();
-  if(notify.length){
-    alertify.notify(notify,"success",7);
+  if (notify.length) {
+    alertify.notify(notify, "success", 7);
   }
 }
 
-function changeTypeChat(){
-  $('#select-type-chat').bind("change",function(){
+function changeTypeChat() {
+  $('#select-type-chat').bind("change", function () {
     let optionSelected = $("option:selected", this);
     // console.log(optionSelected);
     optionSelected.tab("show");
-    if($(this).val() === "user-chat"){
+    if ($(this).val() === "user-chat") {
       $(".create-group-chat").hide();
-    }else{
+    } else {
       $(".create-group-chat").show();
     }
 
@@ -191,10 +191,10 @@ function changeTypeChat(){
 
 }
 
-function changeScreenChat(){
-  $(".room-chat").unbind("click").on("click",function(){
+function changeScreenChat() {
+  $(".room-chat").unbind("click").on("click", function () {
     //cau hinh thanh cuon ben box chat rightSide.ejs moi khi click vao 1 cuoc tro chuyen cu the
-    let divId =$(this).find("li").data("chat");
+    let divId = $(this).find("li").data("chat");
 
 
     $(".person").removeClass("active");
@@ -208,11 +208,13 @@ function changeScreenChat(){
     enableEmojioneArea(divId);
     //bat lang nghe Dom image chat
     imageChat(divId);
+    //bat lang nghe Dom video chat
+    videoChat(divId);
   })
 }
 
 
-$(document).ready(function() {
+$(document).ready(function () {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
 
@@ -253,4 +255,8 @@ $(document).ready(function() {
 
   //click vao phan tu dau tin cua cuoc tro chuyen khi reload
   $("ul.people").find("a")[0].click();
+
+  $('#video-chat-group').bind("click", function () {
+    alertify.notify("Không khả dụng tính năng này với nhóm trò chuyện !", "error", 7);
+  })
 });
