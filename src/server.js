@@ -17,10 +17,15 @@ import initSockets from "./sockets/index";
 import cookieParser from "cookie-parser";
 
 import configSocketIo from "./config/socketio";
+import events from "events";
+import *as configApp from "./config/app";
 
 
 //Init app
 let app = express();
+
+//tang so luong emit colection
+events.EventEmitter.defaultMaxListeners =configApp.app.max_events_listeners;
 
 //Init server with socket.io and express app
 

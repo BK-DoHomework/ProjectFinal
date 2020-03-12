@@ -9,7 +9,7 @@ let chatTextEmoji = (io) => {
 		socket.request.user.chatGroupIds.forEach(group => {
 			clients = pushSocketIdToArray(clients, group._id, socket.id);
 		});
-		console.log("client:", clients)
+		// console.log("client:", clients)
 		// console.log("---------------------------------------------------------------------------")
 		socket.on("chat-text-emoji-one", (data) => { //lang nghe sk tu clien voi ten ...va gia tri keo len ...
 			// console.log(data);
