@@ -5,41 +5,34 @@ import request from "request";
 
 let getICETurnServer = () => {
   return new Promise(async (resolve, reject) => {
-    // Node Get ICE STUN and TURN list
-    let o = {
-      format: "urls"
-    };
+    // // Node Get ICE STUN and TURN list
+    // let o = {
+    //   format: "urls"
+    // };
 
-    let bodyString = JSON.stringify(o);
-    let options = {
-      url: "https://global.xirsys.net/_turn/DoAnTotNghiep",
-      // host: "global.xirsys.net",
-      // path: "/_turn/DoAnTotNghiep",
-      method: "PUT",
-      headers: {
-        "Authorization": "Basic " + Buffer.from("tranthuong:c14df2aa-6467-11ea-83ae-0242ac110004").toString("base64"),
-        "Content-Type": "application/json",
-        "Content-Length": bodyString.length
-      }
-    };
-    // goi 1 request den ICE cua list turn server
-    // request(options,(error,response,body)=>{
-    //   if(error){
-    //     console.log("Loi khi gui Request :" +error);
+    // let bodyString = JSON.stringify(o);
+    // let options = {
+    //   url: "https://global.xirsys.net/_turn/DoAnTotNghiep",
+    //   // host: "global.xirsys.net",
+    //   // path: "/_turn/DoAnTotNghiep",
+    //   method: "PUT",
+    //   headers: {
+    //     "Authorization": "Basic " + Buffer.from("tranthuong:c14df2aa-6467-11ea-83ae-0242ac110004").toString("base64"),
+    //     "Content-Type": "application/json",
+    //     "Content-Length": bodyString.length
+    //   }
+    // };
+    // // goi 1 request den ICE cua list turn server
+    // request(options, (error, respone, body) => {
+    //   if (error) {
+    //     console.log("Loi khi gui Request :" + error)
     //     return reject(error);
     //   }
-    //   console.log(body);
-    //   console.log(typeof body);
+    //   let bodyJson =JSON.parse(body);
+    //   resolve(bodyJson.v.iceServers);
+    // })
 
-    // });
-    request(options, (error, respone, body) => {
-      if (error) {
-        console.log("Loi khi gui Request :" + error)
-        return reject(error);
-      }
-      let bodyJson =JSON.parse(body);
-      resolve(bodyJson.v.iceServers);
-    })
+    resolve([]);
   })
 }
 
