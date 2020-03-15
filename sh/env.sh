@@ -8,7 +8,7 @@
 
 # config app environment variable
 export APP_HOST=localhost
-export APP_PORT=8007
+export APP_PORT=8017
 
 
 #config key section

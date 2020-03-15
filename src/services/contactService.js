@@ -298,6 +298,25 @@ let approveRequestContactReceived = (currentUserId, contactId) => {
 
 };
 
+let searchFriend = (currentUserId, keyword) => {
+  return new Promise(async (resovle, reject) => {
+    let friendIds = [];
+    let friends = await ContactModel.getFriends(currentUserId);
+    friends.forEach((item)=>{
+      friendIds.push(item.userId);
+      friendIds.push(item.contactId);
+    });
+    //loai bo cac id trung lap
+    friendIds= _.uniqBy(friendIds);
+
+    friendIds = friendIds.filter(userId => userId != currentUserId);
+    let users = await UserModel.findAllToAddGroupChat(friendIds,keyword);
+    resovle(users);
+
+  });
+};
+
+
 
 module.exports = {
   findUserContact: findUserContact,
@@ -314,5 +333,6 @@ module.exports = {
   readMoreContactsRecieved: readMoreContactsRecieved,
   removeRequestContactReceived: removeRequestContactReceived,
   approveRequestContactReceived: approveRequestContactReceived,
-  removeContact:removeContact
+  removeContact:removeContact,
+  searchFriend:searchFriend
 };
