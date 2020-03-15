@@ -8,7 +8,9 @@ export const transValidation = {
 	update_address: "Giới hạn địa chỉ trong khoảng 3-30 kí tự",
 	update_phone: "Số điện thoại việt nam bắt đầu tuwd số 0, và giớ hạn là 11 chữ số !",
 	keyword_find_user: "Tìm kiếm chỉ ấp dụng cho chữ cái, số, khoảng trắng ,không áp dụng cho các kí tự đặc biệt !",
-	message_text_emoji_error: "Tin nhắn không hợp lệ , đảm bảo tối thiêu 1 kí tự, tối đa 400 kí tự !"
+	message_text_emoji_error: "Tin nhắn không hợp lệ , đảm bảo tối thiêu 1 kí tự, tối đa 400 kí tự !",
+	add_new_user_error:"Cuộc trò chuyện phải có nhiều hơn 2 ngừoi, chọn thêm bạn vào nhóm",
+	add_new_name_error:"Vui lòng nhập tên cuộc nói chyên từ 5-30 kí tự, không chứa kí tự đặc biệt !"
 
 };
 

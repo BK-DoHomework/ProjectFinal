@@ -16,7 +16,9 @@ let ChatGroupSchema = new Schema({
 });
 
 ChatGroupSchema.statics = {
-
+	createNew(item) {
+    return this.create(item); // sử dụng hàm create có sẵn của mogoDB
+	},
 	//get chat groupItem by userId and limit
 	getChatGroups(userId, limit) {
 		return this.find({
