@@ -233,8 +233,21 @@ ContactSchema.statics = {
     },{
       "updatedAt":Date.now()
     }).exec();
-  }
-
+  },
+    //lay ra cac ban ghi da la ban be
+    getFriends(userId) {
+      return this.find({
+        $and: [
+          {
+            $or: [
+              { "userId": userId },
+              { "contactId": userId } //ban bef thi khong phan biet ai gui truoc gui va ai nhan
+            ]
+          },
+          { "status": true }
+        ]
+      }).sort({ "updateAt": -1 }).exec();
+    },
 
 
 };
