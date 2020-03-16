@@ -10,6 +10,7 @@ import typingOff from "./chat/typingOff";
 import chatImage from "./chat/chatImage";
 import chatVideo from "./chat/chatVideo";
 import userOnlineOffline from "./status/userOnlineOffline";
+import newGroupChat from "./group/newGroupChat"
 
 
 //io params form socket.io
@@ -26,6 +27,7 @@ let initSockets = (io) => {
     chatImage(io);
     chatVideo(io);
     userOnlineOffline(io);
+    newGroupChat(io);
 };
 
 module.exports = initSockets;
