@@ -9,6 +9,14 @@ let chatTextEmoji = (io) => {
 		socket.request.user.chatGroupIds.forEach(group => {
 			clients = pushSocketIdToArray(clients, group._id, socket.id);
 		});
+		// //khi co cuoc tro chuyen moi
+		// socket.on("new-group-created", (data) => { //lang nghe sk tu clien voi ten ...va gia tri keo len ...
+    //   clients = pushSocketIdToArray(clients, data.groupChat._id, socket.id);
+		// });
+		// socket.on("member-recieved-group-chat", (data) => { //lang nghe sk tu clien voi ten ...va gia tri keo len ...
+    //   clients = pushSocketIdToArray(clients, data.groupChatId, socket.id);
+		// })
+
 		// console.log("client:", clients)
 		// console.log("---------------------------------------------------------------------------")
 		socket.on("chat-text-emoji-one", (data) => { //lang nghe sk tu clien voi ten ...va gia tri keo len ...
